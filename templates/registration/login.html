@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block background_image %}{% static "images/hero.jpg" %}{% endblock %}{% block variables %}no-repeat; center center; background-size: cover; background-attachment: fixed;{% endblock %}
+
+{% block content %}
+<section class="py-5 container">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+            <div class="card shadow-lg border-0">
+                <div class="card-body p-5">
+                    <h2 class="text-center mb-4">Login</h2>
+                    <p class="text-center text-muted mb-4">Welcome back! Please login to your account.</p>
+                    
+                    {% if form.errors %}
+                    <div class="alert alert-danger" role="alert">
+                        Invalid username or password. Please try again.
+                    </div>
+                    {% endif %}
+
+                    <form method="post" action="{% url 'login' %}">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label for="id_username" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="id_username" name="username" required autofocus>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="id_password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="id_password" name="password" required>
+                        </div>
+
+                        <input type="hidden" name="next" value="{{ next }}">
+
+                        <div class="d-grid mb-3">
+                            <button type="submit" class="btn btn-primary btn-lg">Login</button>
+                        </div>
+
+                        <div class="text-center">
+                            <a href="{% url 'password_reset' %}" class="text-muted">Forgot password?</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="text-center" style="background-color: white; padding: 20px;">
+                <p style="color: darkslategray;">Don't have an account? <a href="{% url 'signup' %}" style="color: rgb(0, 0, 0);"><strong>Sign up</strong></a></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+      let nav_links = Array.from(document.getElementsByClassName("nav-link"));
+      for(let i = 0; i < nav_links.length; i++){
+        if(nav_links[i].dataset.page === "login"){
+          nav_links[i].classList.add("underline-page");
+        } else{
+          nav_links[i].classList.remove("underline-page");
+        }
+      }
+    });
+   </script>
+{% endblock %}

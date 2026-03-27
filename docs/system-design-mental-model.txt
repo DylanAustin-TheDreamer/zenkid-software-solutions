@@ -1,0 +1,136 @@
+SYSTEM DESIGN MENTAL MODEL FOR APP FEATURES
+
+Use this whenever you are wiring frontend to backend to external APIs.
+
+CORE IDEA
+Build one stable contract between layers. Most pain comes from mismatched shapes, not coding syntax.
+
+Think in three contracts:
+1) Browser contract
+2) Backend contract
+3) Provider contract (OpenAI, Groq, Stripe, etc.)
+
+The browser should only know your backend contract.
+The backend translates between browser contract and provider contract.
+
+--------------------------------------------------
+THE 4-STEP FLOW
+--------------------------------------------------
+1) UI emits one request shape
+   Example: { "message": "..." }
+
+2) Server translates to provider format
+   Example: prompt assembly, model selection, auth headers
+
+3) Server emits one response shape to UI
+   Success: { "response": "..." }
+   Failure: { "error": "..." }
+
+4) UI handles only these two keys
+   If response exists: render it
+   Else: show readable error
+
+--------------------------------------------------
+BUILD FROM SCRATCH CHECKLIST
+--------------------------------------------------
+1) Define endpoint
+   - Pick route first, for example /api/assistant/
+
+2) Define schemas first (before coding internals)
+   - Request schema from UI
+   - Response schema to UI
+   - Error schema to UI
+
+3) Stub backend response
+   - Return static success JSON first
+   - Confirm frontend rendering works
+
+4) Wire frontend to stub
+   - Test input, button, loading, render path
+
+5) Add provider call behind same schema
+   - Keep frontend unchanged
+
+6) Normalize all errors in backend
+   - Return { "error": "..." } for every failure path
+   - Never leak raw HTML or random provider objects to frontend
+
+7) Add runtime config validation
+   - Check API key/model at startup or request entry
+   - Return explicit config error if missing
+
+8) Add observability
+   - Log request id, status, latency, response length
+   - Avoid logging secrets or full user content
+
+9) Add guardrails
+   - Input validation
+   - Timeouts
+   - Retry policy (if safe)
+   - Rate limits where needed
+
+10) Test in this order
+   - Local UI -> backend stub
+   - Local backend -> provider
+   - Full local end-to-end
+   - Production env var checks
+
+--------------------------------------------------
+DEBUGGING PLAYBOOK
+--------------------------------------------------
+When something fails, isolate by layer:
+
+Layer A: Frontend
+- Is click handler firing?
+- Is request body shape correct?
+- Is CSRF/header present?
+
+Layer B: Backend endpoint
+- Did route resolve?
+- Is payload parsing correct?
+- Are env vars present at runtime?
+
+Layer C: Provider
+- Is API key valid?
+- Is model name valid?
+- Is request format accepted?
+- Is provider rate-limiting?
+
+Golden rule: Fix one layer at a time, keep contract constant.
+
+--------------------------------------------------
+MINIMUM API CONTRACT TEMPLATE
+--------------------------------------------------
+Request from frontend:
+{
+  "message": "user input"
+}
+
+Success from backend:
+{
+  "response": "assistant output"
+}
+
+Error from backend:
+{
+  "error": "human-readable message"
+}
+
+--------------------------------------------------
+MENTAL REFRAMES
+--------------------------------------------------
+- You are not writing one feature, you are designing interfaces.
+- Simplicity is consistency of shape.
+- Most bugs are contract drift.
+- Stable contracts make future changes easy.
+
+--------------------------------------------------
+QUICK PRE-FLIGHT BEFORE DEPLOY
+--------------------------------------------------
+1) API key exists in production config vars
+2) Model name exists in production config vars (or has sane default)
+3) Endpoint returns JSON for both success and failure
+4) Frontend never assumes non-JSON responses are valid JSON
+5) Logs do not expose secrets
+
+End of reference.

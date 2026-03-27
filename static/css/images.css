@@ -1,0 +1,78 @@
+/* for images */
+#colored {
+  filter: invert(1) sepia(1) saturate(5) hue-rotate(275deg);
+}
+
+#hero {
+  position: relative;
+  overflow: hidden;
+  width: 100vw;
+  min-width: 100%;
+  height: fit-content; /* or another relative unit */
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-left: calc(50% - 50vw);
+}
+#hero::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(187, 29, 187, 0.45); /* for a light overlay */
+  z-index: 1;
+}
+#hero > * {
+  position: relative;
+  z-index: 2;
+}
+
+#hero h1, #hero p {
+  color: #fff !important;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.7);
+}
+#intro-div{
+  background-color: rgba(78, 0, 68, 0.65);
+  padding: 45px;
+  border-radius: 12px;
+}
+
+.workflow-image{
+  max-width: 130px;
+}
+.services-image{
+  max-width: 100px;
+}
+
+/* Album card styles */
+.album .card {
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  padding: 8px;
+  transition: background-color 0.15s ease, color 0.15s ease-in-out;
+  position: relative;
+}
+.album .card::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  right: 8px;
+  height: 225px;
+  background: rgba(0, 0, 0, 0.25);
+  z-index: 1;
+  pointer-events: none;
+  transition: background 0.15s ease;
+}
+.album .card:hover::before {
+  background: rgba(0, 0, 0, 0);
+  transition: background 0.3s ease-in-out;
+}
+.album .card:hover{
+  background-color: rgb(245, 221, 255);
+  cursor: pointer;
+}
+
+#professional{
+  width: auto;
+  height: 250px;
+}

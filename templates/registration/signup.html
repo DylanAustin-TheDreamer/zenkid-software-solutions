@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block background_image %}{% static "images/hero.jpg" %}{% endblock %}{% block variables %}no-repeat; center center; background-size: cover; background-attachment: fixed;{% endblock %}
+
+{% block content %}
+<section class="py-5 container">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+            <div class="card shadow-lg border-0">
+                <div class="card-body p-5">
+                    <h2 class="text-center mb-4">Sign Up</h2>
+                    <p class="text-center text-muted mb-4">Create your account to get started.</p>
+                    
+                    {% if form.errors %}
+                    <div class="alert alert-danger" role="alert">
+                        Please correct the errors below.
+                    </div>
+                    {% endif %}
+
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label for="id_username" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="id_username" name="username" required autofocus>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="id_email" class="form-label">Email Address</label>
+                            <input type="email" class="form-control" id="id_email" name="email" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="id_password1" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="id_password1" name="password1" required>
+                            <small class="form-text text-muted">
+                                Your password must contain at least 8 characters.
+                            </small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="id_password2" class="form-label">Confirm Password</label>
+                            <input type="password" class="form-control" id="id_password2" name="password2" required>
+                        </div>
+
+                        <div class="d-grid mb-3">
+                            <button type="submit" class="btn btn-primary btn-lg">Sign Up</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="text-center" style="background-color: white; padding: 20px;">
+                <p style="color: darkslategray;">Already have an account? <a href="{% url 'login' %}" style="color: rgb(0, 0, 0);"><strong>Login</strong></a></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+      let nav_links = Array.from(document.getElementsByClassName("nav-link"));
+      for(let i = 0; i < nav_links.length; i++){
+        nav_links[i].classList.remove("underline-page");
+      }
+    });
+</script>
+{% endblock %}

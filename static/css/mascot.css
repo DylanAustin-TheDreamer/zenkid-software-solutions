@@ -1,0 +1,43 @@
+#mascot{
+    overflow-x: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 35px;
+}
+#mascot > img{
+    width: 80%;
+    height: auto;
+    margin: 0;
+}
+#our-mascot{
+    color: #fff !important;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.7);
+}
+#our-mascot > p{
+    font-size: x-large;
+    color: rgb(240, 201, 255) !important;
+}
+#slogan{
+    color: #fff !important;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.7);
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: end;
+    padding: 45px;
+    padding-top: 0;
+}
+#slogan > p{
+    font-size: xx-large;
+    color: rgb(255, 255, 255) !important;
+    padding-right: 85px;
+}
+
+@media (max-width: 600px){
+    #slogan > p{
+    font-size: larger;
+    color: rgb(255, 255, 255) !important;
+}
+}

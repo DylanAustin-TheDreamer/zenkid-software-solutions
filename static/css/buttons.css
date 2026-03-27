@@ -1,0 +1,95 @@
+.services-hide {
+    opacity: 0;
+    visibility: hidden;
+    height: 0vh;
+    transition: opacity ease-in-out 1s, height ease-in-out 0.5s;
+}
+.flow-hide {
+    opacity: 0;
+    visibility: hidden;
+    height: 0vh;
+    transition: opacity ease-in-out 1s, height ease-in-out 0.5s;
+}
+.services-show {
+    opacity: 1;
+    visibility: visible !important;
+    height: fit-content !important;
+    transition: opacity ease-in-out 1s, height ease-in-out 0.5s;
+}
+.flow-show {
+    opacity: 1;
+    visibility: visible !important;
+    height: fit-content !important;
+    transition: opacity ease-in-out 1s, height ease-in-out 0.5s;
+}
+#services-button:hover {
+    cursor: pointer;
+    color: goldenrod;
+    transform: translateY(-0.2rem);
+    background: linear-gradient(to right, #fff9f9 0%, #fce8e8 100%);
+    transition: color ease-in-out 0.2s, background ease-in-out 0.2s, transform ease-in-out 0.15s;
+}
+#flow-button:hover {
+    cursor: pointer;
+    color: goldenrod;
+    transform: translateY(-0.2rem);
+    background: linear-gradient(to right, #fff9f9 0%, #fce8e8 100%);
+    transition: color ease-in-out 0.2s, background ease-in-out 0.2s, transform ease-in-out 0.15s;
+}
+#what-do-button:hover {
+    cursor: pointer;
+    color: goldenrod;
+    transform: translateY(-0.2rem);
+    background: linear-gradient(to right, #fff9f9 0%, #facdcd 100%);
+    transition: color ease-in-out 0.2s, background ease-in-out 0.2s, transform ease-in-out 0.15s;
+}
+
+#hyper-link:hover{
+    cursor: pointer;
+}
+#whats-fullstack-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.whats-fullstack-container-hide{
+    height: 0vh;
+    transition: height ease-in-out 0.5s;
+}
+.whats-fullstack-container-show{
+    height: 100vh;
+    transition: height ease-in-out 0.5s;
+    height: fit-content;
+}
+#mechanic-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.mechanic-container-hide{
+    height: 0vh;
+    transition: height ease-in-out 0.5s;
+}
+.mechanic-container-show{
+    height: 100vh;
+    transition: height ease-in-out 0.5s;
+    height: fit-content;
+}
+.whats-fullstack{
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity ease-in-out 0.5s;
+}
+.whats-fullstack.show{
+    visibility: visible;
+    opacity: 1;
+}
+.whats-mechanic{
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity ease-in-out 0.5s;
+}
+.whats-mechanic.show{
+    visibility: visible;
+    opacity: 1;
+}

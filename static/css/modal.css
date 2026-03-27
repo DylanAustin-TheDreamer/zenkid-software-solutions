@@ -1,0 +1,122 @@
+/* Modal Message Styles */
+.message-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.message-modal {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    max-width: 500px;
+    width: 90%;
+    max-height: 80vh;
+    overflow: hidden;
+    animation: slideIn 0.3s ease-out;
+}
+
+.message-modal-header {
+    background: linear-gradient(135deg, #7b6688 50%, #cccccc 100%);
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.message-modal-header h5 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.close-modal {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+}
+
+.close-modal:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.message-modal-body {
+    padding: 20px;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.message-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.message-item:last-child {
+    border-bottom: none;
+}
+
+.message-icon {
+    margin-right: 12px;
+    font-size: 20px;
+}
+
+.message-success .message-icon {
+    color: #28a745;
+}
+
+.message-error .message-icon {
+    color: #dc3545;
+}
+
+.message-warning .message-icon {
+    color: #ffc107;
+}
+
+.message-info .message-icon {
+    color: #17a2b8;
+}
+
+.message-modal-footer {
+    padding: 15px 20px;
+    border-top: 1px solid #ddd;
+    display: flex;
+    justify-content: flex-end;
+    background-color: #f8f9fa;
+}
+
+.message-modal-footer .btn-primary {
+    background: linear-gradient(135deg, #7b6688 50%, #cccccc 100%);
+    border: none;
+    padding: 8px 20px;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    font-weight: 500;
+    transition: opacity 0.2s;
+}
+
+.message-modal-footer .btn-primary:hover {
+    opacity: 0.9;
+}

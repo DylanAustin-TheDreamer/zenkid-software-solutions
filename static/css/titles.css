@@ -1,0 +1,19 @@
+.title{
+    text-align: start !important;
+}
+.title > *{
+    font-size: xx-large;
+    color: rgb(37, 37, 37);
+    font-weight: 500;
+    background: linear-gradient(90deg, #fee1ff 0%, #ffffff 100%);
+    padding: 15px;
+    text-shadow: 0 2px 8px rgba(172, 172, 172, 0.7);
+    box-shadow: 1px 1px 4px 0px #494949;
+    border-radius: 25px;
+}
+
+.order-title{
+    padding: 10px;
+    background-color: #e6e6e6;
+    
+}

@@ -1,0 +1,463 @@
+{% extends "base.html" %}
+{% load static %}
+{% block background_image %}{% static "images/hero.jpg" %}{% endblock %} {% block variables %}no-repeat; center center; background-size: cover; background-attachment: fixed;{% endblock %}
+{% block bg-color %}style="background-color: rgba(0, 0, 0, 0.55);"{% endblock %}
+
+{% block content %}
+  <!-- #region Hero -->
+   <section class="py-5 text-center" id="hero" style="background: url({% static "images/tropical-waterfall.jpg" %}); position: relative;">
+      <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto" id="intro-div">
+          <h1 class="font-weight-light">ZenKid Software Solutions</h1>
+          <p>Lancashire, UK based</p>
+          <p style="display: flex; justify-content: center; flex-direction: row; gap: 20px;">
+            <a href="{% url 'contact' %}" class="btn btn-primary my-2">Contact</a>
+          </p>
+          <p id="scroll-to"></p>
+        </div>
+      </div>
+      <div style="position: absolute; right: 25%; bottom: 18%;" >
+        <img id="professional" src="{% static 'images/mascot.png' %}">
+      </div>
+    </section>
+  <!-- #endregion -->
+
+  <!-- #region Intro -->
+    <section class="py-5 text-center" id="intro">
+      <div class="container" style="text-align: start;">
+      <div class="row py-lg-1">
+        <div class="col-lg-6 col-md-8 mx-auto row">
+          <!-- buttons -->
+          <div style="display: flex; flex-direction: row; gap: 15px; justify-content: center;">
+            <button id="what-do-button" class="text-box">What we do</button>
+            <button id="services-button" class="text-box" >Our Services</button>
+            <button id="flow-button" class="text-box" >Our Easy Flow</button>
+          </div>
+          <div class="services-hide" id="what-do-content">
+          <p class="lead text-box mt-4">Here at ZenKid Solutions, we offer digital services to those who need it most - People without digital skills
+            wanting to go self-employed, or people with established businesses that need digital solutions in their community at affordable prices.
+          </p>
+          </div>
+          <div class="row row-cols-1 row-cols-sm-1 row-cols-md-3 gx-3 mt-4 services-hide" style="background-color: rgba(49, 49, 49, 0.027); padding: 20px; margin: 0;" id="services-content">
+            <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+              <img src="{% static 'icons/websites.png' %}" class="services-image">
+              <p style="font-size: larger; font-weight: 500;">Websites (info only)</p>
+            </div>
+            <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+              <img src="{% static 'icons/fs-website.png' %}" class="services-image">
+              <p style="font-size: larger; font-weight: 500;">Full-Stack Websites</p>
+            </div>
+            <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+              <img src="{% static 'icons/page-post.png' %}" class="services-image">
+              <p style="font-size: larger; font-weight: 500;">Auto Page Posting</p>
+            </div>
+            <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+              <img src="{% static 'icons/web-assistant.png' %}" class="services-image">
+              <p style="font-size: larger; font-weight: 500;">Web Assistant</p>
+            </div>
+            <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+              <img src="{% static 'icons/ai-services.png' %}" class="services-image">
+              <p style="font-size: larger; font-weight: 500;">AI Services</p>
+            </div>
+            <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+              <img src="{% static 'icons/mobile-apps.png' %}" class="services-image">
+              <p style="font-size: larger; font-weight: 500;">Mobile Apps</p>
+            </div>
+          </div>
+          <div class="row row-cols-1 row-cols-sm-1 row-cols-md-3 gx-3 flow-hide" style="background-color: rgba(49, 49, 49, 0.027); padding: 20px; margin: 0;" id="flow-content">
+            <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+              <img src="{% static 'icons/Connect.png' %}" class="workflow-image">
+              <p style="font-size: larger; font-weight: 500;">Get in touch</p>
+            </div>
+            <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+              <img src="{% static 'icons/Chat.png' %}" class="workflow-image">
+              <p style="font-size: larger; font-weight: 500;">Free chat</p>
+            </div>
+            <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+              <img src="{% static 'icons/Plan.png' %}" class="workflow-image">
+              <p style="font-size: larger; font-weight: 500;">Plan & Price</p>
+            </div>
+            <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+              <img src="{% static 'icons/Build.png' %}" class="workflow-image">
+              <p style="font-size: larger; font-weight: 500;">Build</p>
+            </div>
+            <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+              <img src="{% static 'icons/Launch.png' %}" class="workflow-image">
+              <p style="font-size: larger; font-weight: 500;">Launch</p>
+            </div>
+            <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+              <img src="{% static 'icons/Support.png' %}" style="max-width: 90px;">
+              <p style="font-size: larger; font-weight: 500;">Ongoing support</p>
+            </div>
+          </div>
+          </div>
+          <br>
+          <hr>
+          <div class="container-fluid" style="height: fit-content; padding: 20px;">
+            <h2 style="text-align: center;">Reviews</h2>
+            {% if total_reviews %}
+            <p style="text-align: center; margin: 0;">
+              Overall rating: <span style="font-weight: 500; color: green;">{{overall_rating}} / 5</span> | <span style="color: rgb(0, 89, 255);">({{total_reviews}} reviews)</span>
+            </p>
+            {% endif %}
+            <br>
+            <div id="reviews-container" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 justify-content-center align-items-center" style="gap: 15px;">
+              {% if reviews %}
+              {% for review in reviews %}
+                <div class="reviews">
+                  <div class="">
+                    <div class="name">
+                      <h5 class="card-title">{{review.name}}</h5>
+                      <i class="fa-solid fa-circle-user"></i>
+                    </div>
+                    <span class="mb-3">
+                      {% if review.rating == 5 %}
+                      <i class="fa-solid fa-star stars" id="star-review"></i>
+                      <i class="fa-solid fa-star stars" id="star-review"></i>
+                      <i class="fa-solid fa-star stars" id="star-review"></i>
+                      <i class="fa-solid fa-star stars" id="star-review"></i>
+                      <i class="fa-solid fa-star stars" id="star-review"></i>
+                      {% elif review.rating == 4 %}
+                      <i class="fa-solid fa-star stars" id="star-review"></i>
+                      <i class="fa-solid fa-star stars" id="star-review"></i>
+                      <i class="fa-solid fa-star stars" id="star-review"></i>
+                      <i class="fa-solid fa-star stars" id="star-review"></i>
+                      {% elif review.rating == 3 %}
+                      <i class="fa-solid fa-star stars" id="star-review"></i>
+                      <i class="fa-solid fa-star stars" id="star-review"></i>
+                      <i class="fa-solid fa-star stars" id="star-review"></i>
+                      {% elif review.rating == 2 %}
+                      <i class="fa-solid fa-star stars" id="star-review"></i>
+                      <i class="fa-solid fa-star stars" id="star-review"></i>
+                      {% elif review.rating == 1 %}
+                      <i class="fa-solid fa-star stars" id="star-review"></i>
+                      {% endif %}
+                    </span>
+                    <p class="card-text review-content mt-4">{{review.main_content|truncatechars:100}}</p>
+                  </div>
+                </div>
+              {% endfor %}
+              {% endif %}
+                <div id="review-slot-1" style="width: 18rem;" ></div>
+                <div id="review-slot-2" style="width: 18rem;" ></div>
+                <div id="review-slot-3" style="width: 18rem;" ></div>
+            </div>
+          </div>
+          <div style="text-align: center;" class="mt-4">
+              <a class="btn btn-primary btn-lg mt-4" href="{% url 'reviews' %}">Leave a review?</a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      </div>
+    </section>
+  <!-- #endregion -->
+
+  <!-- #region Mascot -->
+  <section>
+    <div class="container" style="background: radial-gradient(circle at right, rgba(128,0,255,0.55), transparent),
+    linear-gradient(135deg, #2a0a3d, #1a0826); border-radius: 20px; padding: 35px;">
+      <div id="mascot">
+        <div id="our-mascot">
+          <h2>Our Mascot...</h2>
+          <p>'Kid Guru'</p>
+        </div>
+        <img src="{% static 'images/mascot.png' %}">
+      </div>
+      <div id="slogan" class="container">
+        <p style="padding-right: 200px;">He's got the <em style="color: rgb(240, 201, 255) !important;">Zen...</em></p>
+        <p>...He's got the <em style="color: rgb(240, 201, 255) !important;">Kid</em></p>
+      </div>
+    </div>
+  </section>
+  <!-- #endregion -->
+
+    <!-- #region Album Templates -->
+  <section>
+    <div class="album">
+      <div class="container">
+        <!-- intro to section -->
+        <div id="made-with">
+          <h3>Made with Zenkid...</h3>
+        </div>
+
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+          <div class="col">
+            <div class="card shadow-sm" data-id="artist">
+              <img class="card-img-top" width="100%" height="225"
+                aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" role="img" focusable="false" src="{% static 'album/Const.png' %}">
+            </img>
+
+              <div class="card-body">
+                <p class="card-text">Artist Portfolio</p>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card shadow-sm" data-id="zenkid-software">
+              <img class="card-img-top" width="100%" height="225"
+                aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" role="img" focusable="false" src
+                ="{% static 'album/ZSS.png' %}">
+            </img>
+
+              <div class="card-body">
+                <p class="card-text">ZenKid Software</p>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card shadow-sm" data-id="zenkid-student-suite">
+              <img class="card-img-top" width="100%" height="225"
+                aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" role="img" focusable="false" src="{% static 'album/ZK.png' %}">
+            </img>
+
+              <div class="card-body">
+                <p class="card-text">Zenkid Student Suite</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="card shadow-sm" data-id="team-management-app">
+              <img class="card-img-top" width="100%" height="225"
+                aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" role="img" focusable="false" src="{% static 'album/OT.png' %}">
+            </img>
+
+              <div class="card-body">
+                <p class="card-text">Team Management App</p>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card shadow-sm" data-id="darkness">
+              <img class="card-img-top" width="100%" height="225" src="{% static 'album/Darkness2.png' %}" alt="Placeholder: Thumbnail">
+            </img>
+
+              <div class="card-body">
+                  <p class="card-text">PC Game - Darkness</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="card shadow-sm" data-id="retro-baby">
+              <img class="card-img-top" width="100%" height="225" src="{% static 'album/RB.png' %}" alt="Placeholder: Thumbnail">
+            </img>
+
+              <div class="card-body">
+                  <p class="card-text">Card Website</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="card shadow-sm" data-id="exquiz">
+              <img class="card-img-top" width="100%" height="225" src="{% static 'album/exquiz.png' %}" alt="Placeholder: Thumbnail">
+            </img>
+
+              <div class="card-body">
+                  <p class="card-text">Events Mobile App</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="card shadow-sm" data-id="instagram">
+              <img class="card-img-top" width="100%" height="225" src="{% static 'icons/page-post.png' %}" alt="Placeholder: Thumbnail">
+            </img>
+
+              <div class="card-body">
+                  <p class="card-text">Instagram Bot Posting</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="card shadow-sm" data-id="web-assistant">
+              <svg class="card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"> <path d="M64 416L64 192C64 139 107 96 160 96L480 96C533 96 576 139 576 192L576 416C576 469 533 512 480 512L360 512C354.8 512 349.8 513.7 345.6 516.8L230.4 603.2C226.2 606.3 221.2 608 216 608C202.7 608 192 597.3 192 584L192 512L160 512C107 512 64 469 64 416z"/></svg>
+              <div class="card-body">
+                  <p class="card-text">ZenKid Web-Assistant</p>
+              </div>
+            </div>
+          </div>
+          </div>
+          <div id="contact-us">
+          <h3>Click to get in touch</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+    <!-- #endregion -->
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+const servicesButton = document.getElementById('services-button');
+const flowButton = document.getElementById('flow-button');
+const whatDoButton = document.getElementById('what-do-button');
+const servicesContent = document.getElementById('services-content');
+const flowContent = document.getElementById('flow-content');
+const whatDoContent = document.getElementById('what-do-content');
+
+servicesButton.addEventListener('click', () => {
+    if(servicesContent.classList.contains('services-hide')) {
+        flowContent.classList.remove('flow-show');
+        flowContent.classList.add('flow-hide');
+        whatDoContent.classList.remove('services-show');
+        whatDoContent.classList.add('services-hide');
+        servicesContent.classList.remove('services-hide');
+        servicesContent.classList.add('services-show');
+    } else {
+        servicesContent.classList.remove('services-show');
+        servicesContent.classList.add('services-hide');
+    }
+});
+
+flowButton.addEventListener('click', () => {
+    if(flowContent.classList.contains('flow-hide')) {
+        flowContent.classList.remove('flow-hide');
+        flowContent.classList.add('flow-show');
+        servicesContent.classList.remove('services-show');
+        servicesContent.classList.add('services-hide');
+        whatDoContent.classList.remove('services-show');
+        whatDoContent.classList.add('services-hide');
+    } else {
+        flowContent.classList.remove('flow-show');
+        flowContent.classList.add('flow-hide');
+    }
+});
+
+whatDoButton.addEventListener('click', () => {
+    if(whatDoContent.classList.contains('services-hide')) {
+        whatDoContent.classList.remove('services-hide');
+        whatDoContent.classList.add('services-show');
+        servicesContent.classList.remove('services-show');
+        servicesContent.classList.add('services-hide');
+        flowContent.classList.remove('flow-show');
+        flowContent.classList.add('flow-hide');
+    } else {
+        whatDoContent.classList.remove('services-show');
+        whatDoContent.classList.add('services-hide');
+    }
+});
+const contactButton = document.getElementById('contact-us');
+contactButton.addEventListener('click', () => {
+        window.location.href = "/contact/";
+    });
+});
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const reviews = Array.from(document.querySelectorAll(".reviews"))
+    let currentIndex = 0;
+    let groupSize = 3;
+    let reviews_show = reviews.slice(currentIndex, currentIndex + groupSize);
+    const review_slot_1 = document.getElementById("review-slot-1");
+    const review_slot_2 = document.getElementById("review-slot-2");
+    const review_slot_3 = document.getElementById("review-slot-3");
+    const slotArray = [review_slot_1, review_slot_2, review_slot_3]
+
+    UpdateSlots();
+
+    function UpdateSlots() {
+        // Remove .show from all reviews
+        reviews.forEach(review => review.classList.remove("show"));
+        reviews.forEach(review => review.classList.remove("fade"));
+
+        // Remove all children from slots
+        slotArray.forEach(slot => {
+            while (slot.firstChild) {
+                slot.removeChild(slot.firstChild);
+            }
+        });
+
+        // Append new reviews to slots
+        if(reviews_show.length == 3){
+            for (let i = 0; i < slotArray.length; i++) {
+                slotArray[i].appendChild(reviews_show[i]);
+            }
+        } else {
+            for (let i = 0; i < reviews_show.length; i++){
+                slotArray[i].appendChild(reviews_show[i]);
+            }
+        }
+        // Use a timeout to make sure the fade triggers
+        setTimeout(() => {
+            reviews_show.forEach(review => review.classList.add("show"));
+        }, 20);
+        setTimeout(() => {
+            reviews_show.forEach(review => review.classList.add("fade"));
+        }, 5000);
+    }
+
+    setInterval(() => {
+        reviews.forEach(review => review.classList.add("fade"));
+        
+        setTimeout(() => {
+            currentIndex += groupSize;
+        if (currentIndex >= reviews.length) {
+          currentIndex = 0;
+        }
+
+        if (currentIndex + groupSize <= reviews.length) {
+                reviews_show = reviews.slice(currentIndex, currentIndex + groupSize);
+        } else {
+                reviews_show = reviews.slice(currentIndex, reviews.length);
+            }
+            UpdateSlots();
+        }, 20);
+
+    }, 5500);
+});
+</script>
+
+
+<script>
+  const cards = Array.from(document.querySelectorAll('.card'));
+
+for (i = 0; i < cards.length; i++) {
+    const card = cards[i];
+    card.addEventListener('click', () => {
+        const id = card.dataset.id;
+        if (id === 'artist') {
+            window.open('https://const-collection-0f06bd9d4705.herokuapp.com/', '_blank');
+        } else if (id === 'zenkid-software') {
+            window.location.href = '/';
+        } else if (id === 'zenkid-student-suite') {
+            window.open('https://zen-kid-7fc8f1cd06d2.herokuapp.com/', '_blank');
+        } else if (id === 'team-management-app') {
+            window.open('https://overtime-watcher-201d76b1154f.herokuapp.com/', '_blank');
+        } else if (id === 'darkness') {
+            window.open('https://youtu.be/2zHQm2v1cdc?si=v0ZDatUnLQGyDamj', '_blank');
+
+        } else if (id === 'instagram') {
+             window.open('https://www.instagram.com/______thedreamer______/', '_blank');
+        } else if (id === 'retro-baby') {
+             window.open('https://card-website-c89cc5a5b25d.herokuapp.com/', '_blank');
+        } else if (id === 'exquiz') {
+              window.open('https://github.com/DylanAustin-TheDreamer/exquiz', '_blank');
+        } else if (id === 'web-assistant') {
+            const messageButton = document.getElementById('assistant');
+            const messageContainer = document.getElementById('assistant-messages');
+            const openMessages = document.getElementById('open-messages');
+            const closeMessages = document.getElementById('close-messages');
+            if(messageContainer.classList.contains('messages-hide')) {
+                messageContainer.classList.remove('messages-hide');
+                messageContainer.classList.add('messages-show');
+                messageButton.classList.add('assistant-close');
+                openMessages.style.display = 'none';
+                closeMessages.style.display = 'block';
+            } else {
+                messageContainer.classList.remove('messages-show');
+                messageContainer.classList.add('messages-hide');
+                messageButton.classList.remove('assistant-close');
+                openMessages.style.display = 'block';
+                closeMessages.style.display = 'none';
+            }
+        }
+    });
+}
+</script>
+
+{% endblock %}

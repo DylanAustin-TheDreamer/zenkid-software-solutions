@@ -1,0 +1,93 @@
+/* #region Navigation Bar */
+@media (max-width: 767px) {
+    #custom-nav{
+        display: none;
+        visibility: hidden;
+    }
+    #custom-pages{
+        display: block;
+        visibility: show;
+    }
+    #profile{
+        display: none;
+        visibility: hidden;
+    }
+}
+@media (min-width: 768px) {
+    #custom-nav{
+        display: block;
+        visibility: show;
+    }
+    #custom-nav{
+    margin-left: 0 !important;
+    margin-right: auto !important;
+    display:flex !important; 
+    flex-direction:row !important; 
+    gap:1rem !important;
+    justify-content: flex-start !important;
+    }
+    #custom-pages{
+        display: none;
+        visibility: hidden;
+    }
+    #profile{
+        display: block;
+        visibility: show;
+    }
+}
+
+@media (max-width: 1600px){
+  #professional{
+    width: auto !important;
+    height: 150px !important;
+  }
+}
+@media (max-width: 1440px){
+  #professional{
+    width: auto !important;
+    height: 150px !important;
+  }
+}
+@media (max-width: 989px){
+  #professional{
+    width: auto !important;
+    height: 125px !important;
+  }
+}
+@media (max-width: 767px){
+  #professional{
+    visibility: hidden;
+  }
+  #slogan > p{
+    font-size: large;
+  }
+  .container{
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+  }
+  .navbar{
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+}
+
+@media (max-width: 400px){
+  #assistant-messages {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    z-index: 9998;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 250px;
+    max-height: 400px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+}
+/* #endregion */

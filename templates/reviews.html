@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<style>
+    .show-content{
+        display: block;
+    }
+    .hide-content{
+        display: none;
+    }
+</style>
+<section class="py-5 container">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10">
+            <div class="card shadow-lg border-0">
+                <div class="card-body p-5">
+                    {% if user.is_authenticated %}
+                    {% if not user_reviews %}
+                    <h3 class="text-center">Reviews</h3>
+                    <form method="POST" action="{% url 'make-review' %}">
+                    {% csrf_token %}
+                        <div class="mb-3">
+                            <label class="form-label" for="name">Username</label>
+                            <input class="form-control" type="hidden" id="name" name="name" value="{{user.username}}"></input>
+                            <p class="form-control" style="text-align: start;">{{user.username}}</p>
+                        </div>
+                        <div class="mb-3" style="display: flex; justify-content: center; flex-direction: column;">
+                            <label class="form-label" for="rating">Star Rating | ⭐</label>
+                            <select name="rating" required>
+                                <option value="1">1 ⭐</option>
+                                <option value="2">2 ⭐</option>
+                                <option value="3">3 ⭐</option>
+                                <option value="4">4 ⭐</option>
+                                <option value="5">5 ⭐</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="content">Message</label>
+                            <textarea style="height: 200px;" class="form-control" type="text" id="content" name="content" required></textarea>
+                        </div>
+                        <div class="mb-3 justify-content-center d-flex">
+                            <input class="btn btn-primary btn-lg" type="submit"></input>
+                        </div>
+                    </form>
+                    {% elif user_reviews %}
+                    <p class="text-center" style="background-color: rgb(253, 246, 255); border-left: solid pink; padding: 25px; font-size: larger;">You have already left a review - Thanks!</p>
+                    {% endif %}
+                    {% else %}
+                    <h3 class="text-center">Please log in to leave a review</h3>
+                    <div class="container d-flex justify-content-center align-items-center mt-4">
+                        <a href="{% url 'login' %}" class="btn btn-secondary btn-lg" style="text-decoration: none;">Login</a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="py-5">
+        <div style="background-color: white; padding-bottom: 20px;" class="py-5">
+            <h3 style="text-align: center; padding: 25px;">Hall of Fame!</h3>
+            <br>
+            <div style="gap: 15px;" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 justify-content-center">
+                {% if reviews %}
+                {% for review in reviews %}
+                    <div class="reviews-visible">
+                    <div class="">
+                        <div class="name">
+                        <h5 class="card-title">{{review.name}}</h5>
+                        <i class="fa-solid fa-circle-user"></i>
+                        </div>
+                        <span class="mb-3">
+                        {% if review.rating == 5 %}
+                        <i class="fa-solid fa-star stars" id="star-review"></i>
+                        <i class="fa-solid fa-star stars" id="star-review"></i>
+                        <i class="fa-solid fa-star stars" id="star-review"></i>
+                        <i class="fa-solid fa-star stars" id="star-review"></i>
+                        <i class="fa-solid fa-star stars" id="star-review"></i>
+                        {% elif review.rating == 4 %}
+                        <i class="fa-solid fa-star stars" id="star-review"></i>
+                        <i class="fa-solid fa-star stars" id="star-review"></i>
+                        <i class="fa-solid fa-star stars" id="star-review"></i>
+                        <i class="fa-solid fa-star stars" id="star-review"></i>
+                        {% elif review.rating == 3 %}
+                        <i class="fa-solid fa-star stars" id="star-review"></i>
+                        <i class="fa-solid fa-star stars" id="star-review"></i>
+                        <i class="fa-solid fa-star stars" id="star-review"></i>
+                        {% elif review.rating == 2 %}
+                        <i class="fa-solid fa-star stars" id="star-review"></i>
+                        <i class="fa-solid fa-star stars" id="star-review"></i>
+                        {% elif review.rating == 1 %}
+                        <i class="fa-solid fa-star stars" id="star-review"></i>
+                        {% endif %}
+                        </span>
+                        {% if review.main_content|length > 89 %}<p class="card-text review-content mt-4" id="review-content">{{review.main_content|truncatechars:100}}</p>
+                        <button style="border: none; background: none; color: blue;" id="see-more">See more...</button>
+                        {% else %}<p class="card-text review-content mt-4" id="review-content">{{ review.main_content }}</p>{% endif %}
+                        <p class="card-text review-content mt-4 hide-content" id="review-content-max">{{review.main_content}} <button style="border: none; background: none; color: blue;" id="see-less">See less...</button></p>
+                    </div>
+                    </div>
+                {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+<div class="d-flex">
+    <div style="height: 100vh; flex-grow: 1;"></div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+      let nav_links = Array.from(document.getElementsByClassName("nav-link"));
+      for(let i = 0; i < nav_links.length; i++){
+        if(nav_links[i].dataset.page === "reviews"){
+          nav_links[i].classList.add("underline-page");
+        } else{
+          nav_links[i].classList.remove("underline-page");
+        }
+      }
+    });
+</script>
+
+<!-- Review handler -->
+<script>
+    const reviews = Array.from(document.querySelectorAll(".reviews-visible"));
+
+    reviews.forEach((element) => {
+        const shortContent = element.querySelector("#review-content");
+        const fullContent = element.querySelector("#review-content-max");
+        const seeMore = element.querySelector("#see-more");
+        const seeLess = element.querySelector("#see-less");
+
+        if (!seeMore || !seeLess || !shortContent || !fullContent) return;
+
+        seeMore.addEventListener("click", (e) => {
+            e.stopPropagation();
+            seeMore.classList.add("hide-content");
+            shortContent.classList.add("hide-content");
+            fullContent.classList.remove("hide-content");
+            fullContent.classList.add("show-content");
+        });
+
+        seeLess.addEventListener("click", (e) => {
+            e.stopPropagation();
+            seeMore.classList.remove("hide-content");
+            fullContent.classList.add("hide-content");
+            fullContent.classList.remove("show-content");
+            shortContent.classList.remove("hide-content");
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,24 @@
+footer{
+    background-color: white;
+}
+#footer-nav{
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    font-size: 3rem;
+    flex-direction: row;
+}
+#footer-nav a{
+    color: darkslategrey;
+    text-decoration: none;
+}
+#footer-nav a:hover{
+    color: rgb(90, 104, 104);
+    transform: translateY(-0.2rem);
+    transition: color ease-in-out 0.2s, transform ease-in-out 0.15s;
+
+}
+#footer-info{
+    text-align: center;
+    margin-top: 1rem;
+}

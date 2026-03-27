@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block background_image %}{% static "" %}{% endblock %}
+{% block content %}
+<style>
+  #align-text p{
+    text-align: start !important;
+    border-left: solid pink !important;
+    background-color: rgb(253, 246, 255);
+    padding: 8px;
+  }
+  @media (max-width: 450px) {
+    #card-body{
+      padding: 10px !important;
+      margin-top: 10px !important;
+    }
+    #card-body p{
+      text-align: start !important;
+    }
+  }
+</style>
+<section class="py-5 container">
+    <h3 class="text-center mb-4">About Us</h3>
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10">
+            <div class="card shadow-lg border-0">
+                <div class="card-body p-5" id="card-body">
+                    <p>Welcome to Zenkid Solutions! We are dedicated to providing innovative and effective solutions to help businesses thrive in the digital age. Our team of experts specializes in a wide range of services including web development, AI services, and apps.</p>
+                    <p>At Zenkid Solutions, we believe in a customer-centric approach. We work closely with our clients to understand their unique needs and tailor our services to meet those needs effectively. Our mission is to empower businesses with the tools and strategies they need to succeed in an ever-evolving marketplace.</p>
+                    <p>We are committed to delivering high-quality results that exceed our clients' expectations. Whether you're a small startup or an established enterprise, Zenkid Solutions is here to help you achieve your goals.</p>
+                    <p>Thank you for considering Zenkid Solutions as your trusted partner. We look forward to working with you and helping your business reach new heights!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <h4 class="text-center mb-4">What we do...</h4>
+    <div class="row justify-content-center">
+      <div class="col-lg-8 col-md-10">
+            <div class="card shadow-lg border-0">
+                <div class="card-body p-5" id="card-body">
+                    <p>Here at ZenKid Solutions, we offer digital services to those who need it most - People without digital skills
+                      wanting to go self-employed, or people with established businesses that need digital solutions in their community at affordable prices.
+                    </p>
+                    <h5 style="background-color: rgb(102, 102, 102); padding: 25px; color: white; text-align: center;">Services...</h5>
+                    <div id="align-text">
+                        <p>Websites (info only)</p>
+                        <p>Websites (full-stack) <button style=" border: none; text-decoration: underline; background: none; color: blue; padding: 10px;" id="hyper-link">What is this?</button></p>
+                        <div id="whats-fullstack-container" class="whats-fullstack-container-hide">
+                          <p id="whats-fullstack" class="whats-fullstack" style="background-color: rgb(253, 246, 255); border-left: solid pink; padding: 25px;">A full-stack website, is a website that includes a hidden database service that can make database requests.
+                          You can have contact forms, user accounts and anything else that may suit your business needs. <strong>Fun Fact:</strong> This website is a full-stack website - have a look at the contact forms and user account dashboard.</p>
+                        </div>
+                        <p>Automated Social Media Page Bots</p>
+                        <p>Mobile Apps</p>
+                        <p>AI Services</p>
+                        <p>Web assistant - <button id="web-assistant-link" style=" border: none; text-decoration: underline; background: none; color: blue; padding: 10px;">Have you tried ours?</button></p>
+                        <p>Mechanic Shop <button style=" border: none; text-decoration: underline; background: none; color: blue; padding: 10px;" id="hyper-link-mechanic">What is this?</button></p>
+                        <div id="mechanic-container" class="mechanic-container-hide">
+                          <div id="whats-mechanic" class="whats-mechanic">
+                            <p style="background-color: rgb(253, 246, 255); border-left: solid pink; padding: 25px;">Have you spent hours trying to build a website, only for it to fall short of what you imagined?
+                            Maybe the platform you're using feels confusing or too limited - Or perhaps you've used AI to generate a website for your business, but it's not working the way it should? Things are broken, unfinished, or you're not sure how to get it online.
+                            That's where we come in.
+                            Our technical team can take a look at your project, whether it's built with a website builder or created using AI. We'll fix issues, improve performance, and help turn it into something that actually works for you.
+                            Think of us as your website mechanics. Bring your site in, and we'll get it running smoothly again. 🚀
+                            </p>
+                            <a class="btn btn-primary text-center" href="{% url 'contact' %}" style="max-width: fit-content;">Contact</a>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+      let nav_links = Array.from(document.getElementsByClassName("nav-link"));
+      for(let i = 0; i < nav_links.length; i++){
+        if(nav_links[i].dataset.page === "about"){
+          nav_links[i].classList.add("underline-page");
+        } else{
+          nav_links[i].classList.remove("underline-page");
+        }
+      }
+    });
+</script>
+<!-- Script below for handling drop downs -->
+<script>
+  const hyperLink = document.getElementById('hyper-link')
+const fullStack = document.getElementById('whats-fullstack')
+const fullStackContainer = document.getElementById('whats-fullstack-container')
+const hyperLinkMechanic = document.getElementById('hyper-link-mechanic')
+const mechanicContainer = document.getElementById('mechanic-container')
+const whatsMechanic = document.getElementById('whats-mechanic')
+
+hyperLink.addEventListener('click', () => {
+    if(fullStackContainer.classList.contains('whats-fullstack-container-hide')){
+        fullStackContainer.classList.remove('whats-fullstack-container-hide');
+        fullStackContainer.classList.add('whats-fullstack-container-show');
+        fullStack.classList.add('show');
+    } else {
+        fullStackContainer.classList.remove('whats-fullstack-container-show');
+        fullStackContainer.classList.add('whats-fullstack-container-hide');
+        fullStack.classList.remove('show');
+    }
+});
+hyperLinkMechanic.addEventListener('click', () => {
+    if(mechanicContainer.classList.contains('mechanic-container-hide')){
+        mechanicContainer.classList.remove('mechanic-container-hide');
+        mechanicContainer.classList.add('mechanic-container-show');
+        whatsMechanic.classList.add('show');
+    } else {
+        mechanicContainer.classList.remove('mechanic-container-show');
+        mechanicContainer.classList.add('mechanic-container-hide');
+        whatsMechanic.classList.remove('show');
+    }
+});
+</script>
+
+<!-- Web assistent hyper link click function -->
+<script>
+  const webAssistantLink = document.getElementById('web-assistant-link');
+  webAssistantLink.addEventListener('click', () =>{
+    const messageContainer = document.getElementById('assistant-messages');
+            const openMessages = document.getElementById('open-messages');
+            const closeMessages = document.getElementById('close-messages');
+            if(messageContainer.classList.contains('messages-hide')) {
+                messageContainer.classList.remove('messages-hide');
+                messageContainer.classList.add('messages-show');
+                messageButton.classList.add('assistant-close');
+                openMessages.style.display = 'none';
+                closeMessages.style.display = 'block';
+            } else {
+                messageContainer.classList.remove('messages-show');
+                messageContainer.classList.add('messages-hide');
+                messageButton.classList.remove('assistant-close');
+                openMessages.style.display = 'block';
+                closeMessages.style.display = 'none';
+            }
+  })
+</script>
+{% endblock %}

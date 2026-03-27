@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block background_image %}{% static "images/night.jpg" %}{% endblock %} {% block variables %}no-repeat; center center; background-size: cover; background-attachment: fixed;{% endblock %}
+
+{% block content %}
+<style>
+    @media (min-width: 450px){
+        .card-body{
+            padding: 50px !important;
+        }
+    }
+</style>
+<section class="py-5">
+    <div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10">
+            <div class="card shadow-lg border-0">
+                <div class="card-body">
+                    <h2 class="text-center mb-4">Contact Us</h2>
+                    <p class="text-muted mb-4">Have a question? We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+                    <!-- to show from errors after rejected form submission -->
+                    {% if contact.errors %}
+                    <div class="alert alert-danger">
+                        <ul>
+                        
+                            {% for field in contact %}
+                                {% for error in field.errors %}
+                                    <li>{{ field.label }}: {{ error }}</li>
+                                {% endfor %}
+                            {% endfor %}
+                            {% for error in contact.non_field_errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+
+                    <form method="post" action="{% url 'send-message' %}" class="needs-validation" novalidate>
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Full Name <em style="text-emphasis: none; color: red;">*</em></label>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="John Doe" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email Address <em style="text-emphasis: none; color: red;">*</em></label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="john@example.com" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Phone Number <em style="text-emphasis: none; color: red;">*</em></label>
+                            <div class="input-group">
+                                <select class="form-select" id="country_code_contact" style="max-width: 130px;" required>
+                                    <option value="+353">🇮🇪 +353</option>
+                                    <option value="+44">🇬🇧 +44</option>
+                                    <option value="+1">🇺🇸 +1</option>
+                                    <option value="+49">🇩🇪 +49</option>
+                                    <option value="+33">🇫🇷 +33</option>
+                                    <option value="+34">🇪🇸 +34</option>
+                                    <option value="+39">🇮🇹 +39</option>
+                                    <option value="+61">🇦🇺 +61</option>
+                                    <option value="+91">🇮🇳 +91</option>
+                                    <option value="+86">🇨🇳 +86</option>
+                                </select>
+                                <input type="tel" class="form-control" id="local_number_contact" placeholder="7234 567890" required>
+                                <input type="hidden" id="number_contact" name="number">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="subject" class="form-label">Subject <em style="text-emphasis: none; color: red;">*</em></label>
+                            <input type="text" class="form-control" id="subject" name="subject" placeholder="How can we help?" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Message <em style="text-emphasis: none; color: red;">*</em></label>
+                            <textarea class="form-control" id="message" name="message" rows="5" placeholder="Tell us more about your inquiry..." required></textarea>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">Send Message</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="text-center" style="background-color: white; padding: 20px;">
+                <p style="color: darkslategray;">Or reach us directly at - <a href="mailto:zenkidsolutions@gmail.com" style="color: black; text-decoration: underline;"><strong>zenkidsolutions@gmail.com</strong></a></p>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+
+<script>
+    document.querySelector('form[action*="send-message"]').addEventListener('submit', function() {
+        const code = document.getElementById('country_code_contact').value;
+        const local = document.getElementById('local_number_contact').value;
+        document.getElementById('number_contact').value = code + local;
+    });
+</script>
+<script>
+    // Bootstrap form validation
+    (function () {
+      'use strict'
+      var forms = document.querySelectorAll('.needs-validation')
+      Array.prototype.slice.call(forms).forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+          if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+          }
+          form.classList.add('was-validated')
+        }, false)
+      })
+    })()
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+      let nav_links = Array.from(document.getElementsByClassName("nav-link"));
+      for(let i = 0; i < nav_links.length; i++){
+        if(nav_links[i].dataset.page === "contact"){
+          nav_links[i].classList.add("underline-page");
+        } else{
+          nav_links[i].classList.remove("underline-page");
+        }
+      }
+    });
+</script>
+{% endblock %}

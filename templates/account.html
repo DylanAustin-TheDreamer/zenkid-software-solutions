@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block background_image %}{% static "" %}{% endblock %}
+{% block content %}
+<section class="py-5 container">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+            <div class="card shadow-lg border-0">
+                <div class="card-body p-5 text-center">
+                    <h2 class="mb-4">My Account - <a class="btn btn-secondary btn-md" href="{% url 'logout-confirm' %}">Logout?</a></h2>
+                    <p class="text-muted mb-4">
+                        Welcome to your account dashboard! Here you can manage your profile information, view your order history, and update your preferences.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+    <div class="container">
+        <div class="row justify-content-center">
+        {% if orders %}
+            <div><h3 class="text-center mb-4 mt-4">Orders</h3></div>
+            <div class="col-lg-6 col-md-8">
+                <div class="card shadow-lg border-0">
+                    <div class="card-body p-5">
+                        <h4 class="mb-4">Outstanding</h4>
+                        {% if orders %}
+                            {% for order in orders %}
+                                {% if not order.completed %}
+                                    <div class="card mb-3">
+                                        <div class="card-body">
+                                            <h5 class="card-title order-title">Order Reference: <em style="color: green;">{{ order.reference }}</em></h5>
+                                            <hr>
+                                            <p><strong>Service:</strong> {{ order.service }}</p>
+                                            <p style="word-wrap: break-word;"><strong>Message:</strong> {{ order.message }}</p>
+                                            {% if order.invoice %}<p><strong>Price:</strong> £{{ order.invoice }}</p>{% endif %}
+                                            {% if order.in_progress %}<p><strong>Status: </strong><em style="text-emphasis: none;">In progress</em> </p>{% endif %}
+
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                {% endfor %}
+                            {% else %}
+                                <div class="card mb-3">
+                                <div class="card-body">
+                                    <p>No currently outstanding orders</p>
+                                </div>
+                            </div>
+                        {% endif %}
+                            
+                        <h4 class="mb-4">Completed</h4>
+                        {% if orders %}
+                            {% for order in orders %}
+                                {% if order.completed %}
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <h5 class="card-title order-title">Order Reference: <em style="color: green;">{{ order.reference }}</em></h5>
+                                        <hr>
+                                        <p><strong>Service:</strong> {{ order.service }}</p>
+                                        <p><strong>Message:</strong> {{ order.message }}</p>
+                                        {% if order.invoice %}<p><strong>Price:</strong> £{{ order.invoice }}</p>{% endif %}
+                                    </div>
+                                </div>
+                                {% endif %}
+                            {% endfor %}
+                        {% else %}
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <p>Check in soon for further updates</p>
+                                </div>
+                            </div>
+                        {% endif %}
+                            
+                        <br>
+                        <a class="btn btn-secondary btn-md" href="{% url 'orders' %}">Make an order?</a>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div><h3 class="text-center mb-4 mt-4">Orders</h3></div>
+            <div class="col-lg-6 col-md-8">
+                <div class="card shadow-lg border-0">
+                    <div class="card-body p-5">
+                        <h4 class="mb-4">No Orders Made</h4>
+                        <br>
+                        <a class="btn btn-secondary btn-md" href="{% url 'orders' %}">Make an order?</a>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        <div><h3 class="text-center mb-4" style="margin-top: 75px;">Account Settings</h3></div>
+        <div class="container d-flex justify-content-center col card shadow-lg border-0">
+            <div class="row row-cols-1 row-cols-md-2 g-0">
+                    <div class="card-body p-5">
+                        <h4 class="mb-4">Profile Information</h4>
+                        <form method="post" action="#">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Full Name</label>
+                                <input type="text" readonly class="form-control" id="name" name="name" placeholder="{{user.username}}" required>
+                                <label for="email" class="form-label mt-3">Email Address</label>
+                                <input type="email" readonly class="form-control" id="email" name="email" placeholder="{{user.useremail}}" required>
+                                <label for="business" class="form-label mt-3">Business Name</label>
+                                <input type="text" readonly class="form-control" id="business" name="business" placeholder="Not Set" required>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-body p-5 text-center align-items-center d-flex flex-column justify-content-center">
+                        <h4 class="mb-4">Privacy Policy</h4>
+                        <br>
+                        <p class="text-muted mb-4">Your privacy is important to us. We do not share your information with third parties without your consent. For more details, please read our <a href="#">Privacy Policy</a>.</p>
+                    </div>
+                </div>   
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+      let nav_links = Array.from(document.getElementsByClassName("nav-link"));
+      for(let i = 0; i < nav_links.length; i++){
+        if(nav_links[i].dataset.page === "account"){
+          nav_links[i].classList.add("underline-page");
+        } else{
+          nav_links[i].classList.remove("underline-page");
+        }
+      }
+    });
+   </script>
+{% endblock %}
