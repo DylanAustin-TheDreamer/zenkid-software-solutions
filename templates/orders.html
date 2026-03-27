@@ -9,116 +9,122 @@
       <div class="row justify-content-center">
         <div class="col-lg-8 col-md-10">
           {% if user.is_authenticated %}
-          <h1 class="text-center mb-4">Order a Service</h1>
-          <p class="text-center text-muted mb-5">Fill out the form below and we'll get back to you as soon as possible</p>
-          {% if orders.errors %}
-            <div class="alert alert-danger">
-              <ul>
-                
-                {% for field in orders %}
-                  {% for error in field.errors %}
-                    <li>{{ field.label }}: {{ error }}</li>
-                  {% endfor %}
-                {% endfor %}
-                {% for error in orders.non_field_errors %}
-                  <li>{{ error }}</li>
-                {% endfor %}
-              </ul>
-            </div>
+            {% if orders %}
+                <h1 class="text-center mb-4">Order a Service</h1>
+                  <p class="text-center text-muted mb-5">You have already placed orders. When our admin team has completed your requests - this page will be restored</p>
+                <br>
+            {% elif not orders %}
+                  <h1 class="text-center mb-4">Order a Service</h1>
+                  <p class="text-center text-muted mb-5">Fill out the form below and we'll get back to you as soon as possible</p>
+                  {% if orders.errors %}
+                    <div class="alert alert-danger">
+                      <ul>
+                        
+                        {% for field in orders %}
+                          {% for error in field.errors %}
+                            <li>{{ field.label }}: {{ error }}</li>
+                          {% endfor %}
+                        {% endfor %}
+                        {% for error in orders.non_field_errors %}
+                          <li>{{ error }}</li>
+                        {% endfor %}
+                      </ul>
+                    </div>
+                  {% endif %}
+                  
+                  <form action="{% url 'make-order' %}" method="POST" class="needs-validation" novalidate>
+                    {% csrf_token %}
+                    
+                    <!-- Service Selection -->
+                    <div class="mb-3">
+                      <label for="service" class="form-label">Select Service <em style="text-emphasis: none; color: red;">*</em></label>
+                      <select class="form-select" id="service" name="service" required>
+                        <option value="" selected disabled>Choose a service...</option>
+                        <option value="websites-info">Websites (info only)</option>
+                        <option value="fullstack-websites">Full-Stack Websites</option>
+                        <option value="auto-page-posting">Auto Page Posting</option>
+                        <option value="web-assistant">Web Assistant</option>
+                        <option value="ai-services">AI Services</option>
+                        <option value="mobile-apps">Mobile Apps</option>
+                      </select>
+                      <div class="invalid-feedback">
+                        Please select a service.
+                      </div>
+                    </div>
+
+                    <!-- Name -->
+                    <div class="mb-3">
+                      <label for="name" class="form-label">Full Name <em style="text-emphasis: none; color: red;">*</em></label>
+                      <input type="text" class="form-control" id="name" name="name" placeholder="Enter your full name" required>
+                      <div class="invalid-feedback">
+                        Please provide your name.
+                      </div>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="mb-3">
+                      <label for="email" class="form-label">Email Address <em style="text-emphasis: none; color: red;">*</em></label>
+                      <input type="email" class="form-control" id="email" name="email" placeholder="your.email@example.com" required>
+                      <div class="invalid-feedback">
+                        Please provide a valid email address.
+                      </div>
+                    </div>
+
+                    <!-- Phone -->
+                    <div class="mb-3">
+                      <label class="form-label">Phone Number <em style="text-emphasis: none; color: red;">*</em></label>
+                      <div class="input-group">
+                        <select class="form-select" id="country_code_order" style="max-width: 130px;">
+                          <option value="+353">🇮🇪 +353</option>
+                          <option value="+44">🇬🇧 +44</option>
+                          <option value="+1">🇺🇸 +1</option>
+                          <option value="+49">🇩🇪 +49</option>
+                          <option value="+33">🇫🇷 +33</option>
+                          <option value="+34">🇪🇸 +34</option>
+                          <option value="+39">🇮🇹 +39</option>
+                          <option value="+61">🇦🇺 +61</option>
+                          <option value="+91">🇮🇳 +91</option>
+                          <option value="+86">🇨🇳 +86</option>
+                        </select>
+                        <input type="tel" class="form-control" id="local_number_order" placeholder="123 456 7890" required>
+                        <input type="hidden" id="number_order" name="number">
+                      </div>
+                      <div class="invalid-feedback">
+                        Please provide your contact number.
+                      </div>
+                    </div>
+
+                    <!-- Business Name -->
+                    <div class="mb-3">
+                      <label for="business" class="form-label">Business Name <em style="text-emphasis: none; color: red;">*</em></label>
+                      <input type="text" class="form-control" id="business" name="business_name" placeholder="My Business Name" required>
+                      <div class="invalid-feedback">
+                        Please provide your business name.
+                      </div>
+                    </div>
+
+                    <!-- Message/Details -->
+                    <div class="mb-4">
+                      <label for="message" class="form-label">Project Details <em style="text-emphasis: none; color: red;">*</em></label>
+                      <textarea class="form-control" id="message" name="message" rows="6" placeholder="Tell us about your project, your requirements, timeline, budget, etc." required></textarea>
+                      <div class="invalid-feedback">
+                        Please provide details about your project.
+                      </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="d-grid gap-2 d-flex justify-content-center align-items-center">
+                      <button type="submit" class="btn btn-primary btn-lg">Submit Order Request</button>
+                    </div>
+                  </form>
+                  {% else %}
+                  <h1 class="text-center mb-4">Order a Service</h1>
+                  <p class="text-center text-muted mb-5">Please login to your account to make an order request.</p>
+                  <br>
+                  <div class="container d-flex justify-content-center align-items-center">
+                  <a href="{% url 'login' %}" class="btn btn-secondary btn-lg" style="text-decoration: none;">Login</a>
+                  </div>
           {% endif %}
-          
-          <form action="{% url 'make-order' %}" method="POST" class="needs-validation" novalidate>
-            {% csrf_token %}
-            
-            <!-- Service Selection -->
-            <div class="mb-3">
-              <label for="service" class="form-label">Select Service <em style="text-emphasis: none; color: red;">*</em></label>
-              <select class="form-select" id="service" name="service" required>
-                <option value="" selected disabled>Choose a service...</option>
-                <option value="websites-info">Websites (info only)</option>
-                <option value="fullstack-websites">Full-Stack Websites</option>
-                <option value="auto-page-posting">Auto Page Posting</option>
-                <option value="web-assistant">Web Assistant</option>
-                <option value="ai-services">AI Services</option>
-                <option value="mobile-apps">Mobile Apps</option>
-              </select>
-              <div class="invalid-feedback">
-                Please select a service.
-              </div>
-            </div>
-
-            <!-- Name -->
-            <div class="mb-3">
-              <label for="name" class="form-label">Full Name <em style="text-emphasis: none; color: red;">*</em></label>
-              <input type="text" class="form-control" id="name" name="name" placeholder="Enter your full name" required>
-              <div class="invalid-feedback">
-                Please provide your name.
-              </div>
-            </div>
-
-            <!-- Email -->
-            <div class="mb-3">
-              <label for="email" class="form-label">Email Address <em style="text-emphasis: none; color: red;">*</em></label>
-              <input type="email" class="form-control" id="email" name="email" placeholder="your.email@example.com" required>
-              <div class="invalid-feedback">
-                Please provide a valid email address.
-              </div>
-            </div>
-
-            <!-- Phone -->
-            <div class="mb-3">
-              <label class="form-label">Phone Number <em style="text-emphasis: none; color: red;">*</em></label>
-              <div class="input-group">
-                <select class="form-select" id="country_code_order" style="max-width: 130px;">
-                  <option value="+353">🇮🇪 +353</option>
-                  <option value="+44">🇬🇧 +44</option>
-                  <option value="+1">🇺🇸 +1</option>
-                  <option value="+49">🇩🇪 +49</option>
-                  <option value="+33">🇫🇷 +33</option>
-                  <option value="+34">🇪🇸 +34</option>
-                  <option value="+39">🇮🇹 +39</option>
-                  <option value="+61">🇦🇺 +61</option>
-                  <option value="+91">🇮🇳 +91</option>
-                  <option value="+86">🇨🇳 +86</option>
-                </select>
-                <input type="tel" class="form-control" id="local_number_order" placeholder="123 456 7890" required>
-                <input type="hidden" id="number_order" name="number">
-              </div>
-              <div class="invalid-feedback">
-                Please provide your contact number.
-              </div>
-            </div>
-
-            <!-- Business Name -->
-            <div class="mb-3">
-              <label for="business" class="form-label">Business Name <em style="text-emphasis: none; color: red;">*</em></label>
-              <input type="text" class="form-control" id="business" name="business_name" placeholder="My Business Name" required>
-              <div class="invalid-feedback">
-                Please provide your business name.
-              </div>
-            </div>
-
-            <!-- Message/Details -->
-            <div class="mb-4">
-              <label for="message" class="form-label">Project Details <em style="text-emphasis: none; color: red;">*</em></label>
-              <textarea class="form-control" id="message" name="message" rows="6" placeholder="Tell us about your project, your requirements, timeline, budget, etc." required></textarea>
-              <div class="invalid-feedback">
-                Please provide details about your project.
-              </div>
-            </div>
-
-            <!-- Submit Button -->
-            <div class="d-grid gap-2 d-flex justify-content-center align-items-center">
-              <button type="submit" class="btn btn-primary btn-lg">Submit Order Request</button>
-            </div>
-          </form>
-          {% else %}
-          <h1 class="text-center mb-4">Order a Service</h1>
-          <p class="text-center text-muted mb-5">Please login to your account to make an order request.</p>
-          <br>
-          <div class="container d-flex justify-content-center align-items-center">
-          <a href="{% url 'login' %}" class="btn btn-secondary btn-lg" style="text-decoration: none;">Login</a>
-          </div>
           {% endif %}
         </div>
       </div>

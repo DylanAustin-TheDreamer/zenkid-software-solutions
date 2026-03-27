@@ -281,7 +281,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         const route = navigationButton.dataset.route || "";
-        const allowedRoutes = new Set(["/about/", "/contact/", "/orders/", "/reviews/", "/account/login/", "/user-account/"]);
+        const allowedRoutes = new Set(["/about/", "/contact/", "/orders/", "/reviews/", "/account/login/", "/user-account/", "/privacy-policy/"]);
         if (!allowedRoutes.has(route)) {
             return;
         }

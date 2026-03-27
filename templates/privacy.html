@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block background_image %}{% static "images/night.jpg" %}{% endblock %}
+{% block variables %}no-repeat; center center; background-size: cover; background-attachment: fixed;{% endblock %}
+
+{% block content %}
+<style>
+	.policy-wrap {
+		max-width: 920px;
+		margin: 0 auto;
+	}
+
+	.policy-card {
+		background-color: rgba(0, 0, 0, 0.82);
+		color: #f7f7f7;
+		border-radius: 12px;
+		border: 1px solid rgba(255, 255, 255, 0.12);
+	}
+
+	.policy-title {
+		letter-spacing: 0.4px;
+	}
+
+	.policy-section {
+		border-left: 3px solid rgb(247, 157, 255);
+		background-color: rgba(255, 255, 255, 0.04);
+		padding: 16px;
+		border-radius: 6px;
+		margin-bottom: 14px;
+	}
+
+	.policy-section h5 {
+		margin-bottom: 10px;
+	}
+
+	.policy-section p,
+	.policy-section li {
+		color: rgba(255, 255, 255, 0.92);
+	}
+
+	.policy-list {
+		margin-bottom: 0;
+		padding-left: 20px;
+	}
+
+	.policy-note {
+		background-color: rgba(247, 157, 255, 0.12);
+		border: 1px solid rgba(247, 157, 255, 0.45);
+		border-radius: 8px;
+		padding: 14px;
+	}
+
+	@media (max-width: 576px) {
+		.policy-card .card-body {
+			padding: 18px !important;
+		}
+
+		.policy-section {
+			padding: 12px;
+		}
+	}
+</style>
+
+<section class="py-5 container">
+	<div class="policy-wrap">
+		<div class="card shadow-lg border-0 policy-card">
+			<div class="card-body p-5">
+				<h2 class="text-center mb-2 policy-title">Privacy Policy</h2>
+				<p class="text-center mb-4" style="color: rgba(255, 255, 255, 0.8);">ZenKid Solutions</p>
+
+				<div class="policy-note mb-4">
+					<p class="mb-1"><strong>Effective date:</strong> 27 March 2026</p>
+					<p class="mb-0">This policy explains what personal information we collect, why we collect it, and how we protect it when you use our website and services.</p>
+				</div>
+
+				<div class="policy-section">
+					<h5>1. Information We Collect</h5>
+					<p>Depending on how you use our site, we may collect the following:</p>
+					<ul class="policy-list">
+						<li>Account information such as username, first name, last name, email address, and business name.</li>
+						<li>Contact and order information you submit through forms, including phone number, service details, and message content.</li>
+						<li>Website usage data such as basic technical and analytics information to help us improve performance and reliability.</li>
+					</ul>
+				</div>
+
+				<div class="policy-section">
+					<h5>2. How We Use Your Information</h5>
+					<ul class="policy-list">
+						<li>To create and manage your account.</li>
+						<li>To respond to enquiries and provide requested services.</li>
+						<li>To manage orders, send updates, and deliver support.</li>
+						<li>To maintain website security and prevent misuse.</li>
+						<li>To improve our services, features, and user experience.</li>
+					</ul>
+				</div>
+
+				<div class="policy-section">
+					<h5>3. Legal Basis and Consent</h5>
+					<p>We process personal data when it is necessary to provide requested services, communicate with you, and run our business operations. Where required, we ask for your consent before processing specific data.</p>
+				</div>
+
+				<div class="policy-section">
+					<h5>4. Sharing Your Information</h5>
+					<p>We do not sell your personal information. We may share limited information with trusted service providers only when needed to operate our platform, process communications, or comply with legal obligations.</p>
+				</div>
+
+				<div class="policy-section">
+					<h5>5. Data Retention</h5>
+					<p>We keep personal data only for as long as necessary to provide services, meet legal requirements, resolve disputes, and enforce our terms.</p>
+				</div>
+
+				<div class="policy-section">
+					<h5>6. Data Security</h5>
+					<p>We take reasonable technical and organizational measures to protect your information from unauthorized access, loss, misuse, or disclosure. No online system is fully risk-free, but we continuously work to keep your data secure.</p>
+				</div>
+
+				<div class="policy-section">
+					<h5>7. Your Rights</h5>
+					<p>Where applicable, you may have rights to access, correct, update, or request deletion of your personal data. You may also object to certain processing activities or request data portability.</p>
+				</div>
+
+				<div class="policy-section">
+					<h5>8. Cookies and Similar Technologies</h5>
+					<p>We may use cookies or similar technologies for essential functionality and website performance. You can manage cookie preferences through your browser settings.</p>
+				</div>
+
+				<div class="policy-section mb-0">
+					<h5>9. Contact Us</h5>
+					<p class="mb-2">If you have privacy-related questions or requests, contact us at:</p>
+					<p class="mb-0"><a href="mailto:zenkidsolutions@gmail.com" style="color: rgb(247, 157, 255); text-decoration: underline;">zenkidsolutions@gmail.com</a></p>
+                    <p class="mt-4">Or use our built in contact form:</p>
+                    <div class="justify-content-center align-items-center d-flex">
+                        <a href="{% url 'contact' %}" class="btn btn-primary text-center" style="width: 125px; background-color: rgb(199, 124, 206);;">Contact Form</a>
+                    </div>
+                </div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<script>
+	document.addEventListener("DOMContentLoaded", function() {
+	  let nav_links = Array.from(document.getElementsByClassName("nav-link"));
+	  for (let i = 0; i < nav_links.length; i++) {
+		nav_links[i].classList.remove("underline-page");
+	  }
+	});
+</script>
+{% endblock %}

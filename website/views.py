@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, logout
 from django.urls import reverse_lazy
 from django.contrib.auth.views import LoginView
@@ -7,8 +6,8 @@ from openai import OpenAI
 from django.conf import settings
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
-from .models import Order, Message, Reviews
-from .forms import OrderForm, MessageForm
+from .models import Order, Message, Reviews, CustomerProfile
+from .forms import OrderForm, MessageForm, CustomSignupForm
 from django.contrib import messages
 from django.db.models import Avg
 import json
@@ -22,7 +21,8 @@ INTENT_ROUTE_MAP = {
     'orders': '/orders/',
     'reviews': '/reviews/',
     'login': '/account/login/',
-    'account': '/user-account/'
+    'account': '/user-account/',
+    'privacy': '/privacy-policy/'
 }
 
 INTENT_CTA_LABELS = {
@@ -32,6 +32,7 @@ INTENT_CTA_LABELS = {
     'reviews': 'Go to Reviews',
     'login': 'Go to Login',
     'account': 'Go to Account',
+    'privacy': 'Go to Privacy Policy'
 }
 
 
@@ -44,6 +45,7 @@ def classify_intent_not_loggedin(message):
         'reviews': ['review', 'rating', 'testimonial', 'feedback'],
         'about': ['about', 'who are you', 'company', 'business'],
         'login': ['login', 'logout', 'sign in', 'sign up', 'account', 'profile'],
+        'privacy':['data', 'privacy', 'account details', 'profile information', 'user information', 'privacy policy'],
     }
 
     for intent, keywords in intent_keywords.items():
@@ -61,6 +63,7 @@ def classify_intent_loggedin(message):
         'reviews': ['review', 'rating', 'testimonial', 'feedback'],
         'about': ['about', 'who are you', 'company', 'business'],
         'account': ['account', 'profile'],
+        'privacy':['data', 'privacy', 'account details', 'profile information', 'user information', 'privacy policy'],
     }
 
     for intent, keywords in intent_keywords.items():
@@ -109,23 +112,27 @@ def apps(request):
 def contact(request):
     return render(request, 'contact.html')
 
+def privacy(request):
+    return render(request, 'privacy.html')
+
 def account(request):
-    
     order = Order.objects.filter(user=request.user)
-    orders = {
-        'orders': order
+    business = CustomerProfile.objects.filter(user=request.user).first()
+    context = {
+        'orders': order,
+        'business': business,
     }
-    return render(request, 'account.html', orders)
+    return render(request, 'account.html', context)
 
 def signup(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = CustomSignupForm(request.POST)
         if form.is_valid():
             user = form.save()
             login(request, user)
             return redirect('home')
     else:
-        form = UserCreationForm()
+        form = CustomSignupForm()
     return render(request, 'registration/signup.html', {'form': form})
 
 # for messages
@@ -149,7 +156,11 @@ def make_message(request):
 
 # for orders
 def orders(request):
-    return render(request, 'orders.html')
+    order = Order.objects.filter(user=request.user)
+    context = {
+        'orders': order
+    }
+    return render(request, 'orders.html', context)
 
 def make_order(request):
     """ Handle the order form submission """
@@ -160,8 +171,12 @@ def make_order(request):
             order = form.save(commit=False)
             order.user = request.user
             order.save()
-            orders = {'orders': Order.objects.filter(user=request.user)}
-            return render(request, 'account.html', orders)
+            business = CustomerProfile.objects.filter(user=request.user).first()
+            context = {
+                'orders': Order.objects.filter(user=request.user),
+                'business': business
+            }
+            return render(request, 'account.html', context)
         else:
             # Show form errors in the template
             return render(request, 'orders.html', {'orders': form})

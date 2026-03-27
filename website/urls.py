@@ -18,4 +18,5 @@ urlpatterns = [
     path('reviews/', views.reviews, name='reviews'),
     path('make-review/', views.make_review, name='make-review'),
     path("logout-user/", views.logout_user, name="logout-user"),
+    path("privacy-policy/", views.privacy, name="privacy"),
 ]

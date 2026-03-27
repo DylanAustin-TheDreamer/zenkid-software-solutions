@@ -1,6 +1,6 @@
 /* for images */
 #colored {
-  filter: invert(1) sepia(1) saturate(5) hue-rotate(275deg);
+  filter: brightness(0) saturate(100%) invert(18%) sepia(96%) saturate(5230%) hue-rotate(274deg) brightness(112%) contrast(117%);
 }
 
 #hero {
@@ -18,7 +18,7 @@
   content: "";
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  background-color: rgba(187, 29, 187, 0.45); /* for a light overlay */
+  background-color: rgba(128,0,255,0.35); /* for a light overlay */
   z-index: 1;
 }
 #hero > * {
@@ -31,7 +31,7 @@
   text-shadow: 0 2px 8px rgba(0,0,0,0.7);
 }
 #intro-div{
-  background-color: rgba(78, 0, 68, 0.65);
+  background-color: rgba(100, 0, 201, 0.85);
   padding: 45px;
   border-radius: 12px;
 }

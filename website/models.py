@@ -40,3 +40,8 @@ class Reviews(models.Model):
     name = models.CharField(max_length=100)
     main_content = models.TextField()
     rating = models.IntegerField()
+
+
+class CustomerProfile(models.Model):
+    user = models.OneToOneField('auth.User', on_delete=models.CASCADE)
+    business_name = models.CharField(max_length=150, blank=True)
