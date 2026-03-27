@@ -2,36 +2,49 @@
 {% load static %}
 
 {% block background_image %}{% static "" %}{% endblock %}
+{% block bg-color %}style="background-color: rgba(0, 0, 0, 0.9)"{% endblock %}
+{% block footer %}style="background-color: rgb(29, 29, 29) !important;"{% endblock %}
 {% block content %}
-<section class="py-5 container">
-    <div class="row justify-content-center">
-        <div class="col-lg-6 col-md-8">
-            <div class="card shadow-lg border-0">
-                <div class="card-body p-5 text-center">
-                    <h2 class="mb-4">My Account - <a class="btn btn-secondary btn-md" href="{% url 'logout-confirm' %}">Logout?</a></h2>
-                    <p class="text-muted mb-4">
-                        Welcome to your account dashboard! Here you can manage your profile information, view your order history, and update your preferences.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<section>
+<style>
+#footer-nav{
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    font-size: 3rem;
+    flex-direction: row;
+}
+#footer-nav a{
+    color: rgb(209, 209, 209);
+    text-decoration: none;
+}
+#footer-nav a:hover{
+    color: rgb(255, 255, 255);
+    transform: translateY(-0.2rem);
+    transition: color ease-in-out 0.2s, transform ease-in-out 0.15s;
+
+}
+#footer-info{
+    text-align: center;
+    margin-top: 1rem;
+}
+</style>
+<div id="account-container">
+<section class="mt-4 py-5">
     <div class="container">
         <div class="row justify-content-center">
+        <div id="order-dashboard">
         {% if orders %}
-            <div><h3 class="text-center mb-4 mt-4">Orders</h3></div>
             <div class="col-lg-6 col-md-8">
+                <div><h3 class="text-center mb-4 mt-4">Orders</h3></div>
                 <div class="card shadow-lg border-0">
-                    <div class="card-body p-5">
+                    <div class="card-body p-5" style="background-color: rgba(0, 0, 0, 0.85);">
                         <h4 class="mb-4">Outstanding</h4>
                         {% if orders %}
                             {% for order in orders %}
                                 {% if not order.completed %}
-                                    <div class="card mb-3">
-                                        <div class="card-body">
-                                            <h5 class="card-title order-title">Order Reference: <em style="color: green;">{{ order.reference }}</em></h5>
+                                    <div class="mb-3" style="border: 0.5px solid rgba(255, 255, 255, 0.205) !important; border-radius: 8px;">
+                                        <div class="card-body" style="background-color: rgba(0, 0, 0, 0) !important; background-color: rgba(0, 0, 0, 0.8);">
+                                            <h5 class="card-title order-title">Order Reference: <em style="color: rgb(252, 162, 255);">{{ order.reference }}</em></h5>
                                             <hr>
                                             <p><strong>Service:</strong> {{ order.service }}</p>
                                             <p style="word-wrap: break-word;"><strong>Message:</strong> {{ order.message }}</p>
@@ -54,9 +67,9 @@
                         {% if orders %}
                             {% for order in orders %}
                                 {% if order.completed %}
-                                <div class="card mb-3">
-                                    <div class="card-body">
-                                        <h5 class="card-title order-title">Order Reference: <em style="color: green;">{{ order.reference }}</em></h5>
+                                <div class="mb-3" style="border: 0.5px solid rgba(255, 255, 255, 0.205) !important; border-radius: 8px;">
+                                    <div class="card-body" style="background-color: rgba(0, 0, 0, 0);">
+                                        <h5 class="card-title order-title">Order Reference: <em style="color: rgb(252, 162, 255);">{{ order.reference }}</em></h5>
                                         <hr>
                                         <p><strong>Service:</strong> {{ order.service }}</p>
                                         <p><strong>Message:</strong> {{ order.message }}</p>
@@ -90,9 +103,13 @@
                 </div>
             </div>
         {% endif %}
+        <div>
+            <img id="account-image" src="{% static 'images/mascot.png' %}" alt="image of a cool kid sat on a beanbag with a computer on his lap">
+        </div>
+        </div>
 
         <div><h3 class="text-center mb-4" style="margin-top: 75px;">Account Settings</h3></div>
-        <div class="container d-flex justify-content-center col card shadow-lg border-0">
+        <div class="container d-flex justify-content-center col card shadow-lg border-0" style="margin-bottom: 75px; background-color: rgba(255, 255, 255, 0.05);">
             <div class="row row-cols-1 row-cols-md-2 g-0">
                     <div class="card-body p-5">
                         <h4 class="mb-4">Profile Information</h4>
@@ -108,16 +125,17 @@
                             </div>
                         </form>
                     </div>
-                    <div class="card-body p-5 text-center align-items-center d-flex flex-column justify-content-center">
-                        <h4 class="mb-4">Privacy Policy</h4>
-                        <br>
-                        <p class="text-muted mb-4">Your privacy is important to us. We do not share your information with third parties without your consent. For more details, please read our <a href="#">Privacy Policy</a>.</p>
+                    <div class="row justify-content-center align-items-center">
+                        <div class="card-body p-5 text-center justify-content-center align-items-center">
+                            <a class="btn btn-secondary btn-md" href="{% url 'logout-confirm' %}">Logout?</a>
+                        </div>
                     </div>
-                </div>   
+                </div>
             </div>
         </div>
     </div>
 </section>
+</div>
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {

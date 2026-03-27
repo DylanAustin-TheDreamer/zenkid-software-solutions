@@ -48,6 +48,16 @@
     height: 150px !important;
   }
 }
+@media (max-width: 1000px) {
+    #order-dashboard {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    #order-dashboard .order-image {
+        margin-top: 1rem;
+    }
+}
 @media (max-width: 989px){
   #professional{
     width: auto !important;
@@ -72,7 +82,11 @@
     padding-right: 10px !important;
   }
 }
-
+@media (max-width: 500px){
+    #account-image{
+      height: 150px !important;
+    }
+}
 @media (max-width: 400px){
   #assistant-messages {
     position: fixed;

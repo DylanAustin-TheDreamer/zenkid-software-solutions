@@ -1,0 +1,30 @@
+/* Order Dashboard Responsive Grid */
+#order-dashboard {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: start;
+    justify-content: center;
+    align-items: center;
+}
+
+#order-dashboard .order-section {
+    /* Style for the order section */
+}
+
+#order-dashboard .order-image {
+    /* Style for the image container */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#order-dashboard{
+    display: flex;
+    gap: 1rem;
+}
+#account-container > *{
+    color: white;
+}
+#account-image{
+    height: 300px;
+}
