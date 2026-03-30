@@ -8,10 +8,6 @@
     align-items: center;
 }
 
-#order-dashboard .order-section {
-    /* Style for the order section */
-}
-
 #order-dashboard .order-image {
     /* Style for the image container */
     display: flex;
