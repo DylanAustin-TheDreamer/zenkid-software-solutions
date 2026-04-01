@@ -101,8 +101,8 @@
             </p>
             {% endif %}
             <br>
+            {% if reviews %}
             <div id="reviews-container" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 justify-content-center align-items-center" style="gap: 15px;">
-              {% if reviews %}
               {% for review in reviews %}
                 <div class="reviews">
                   <div class="">
@@ -137,12 +137,14 @@
                   </div>
                 </div>
               {% endfor %}
-              {% endif %}
                 <div id="review-slot-1" style="width: 18rem;" ></div>
                 <div id="review-slot-2" style="width: 18rem;" ></div>
                 <div id="review-slot-3" style="width: 18rem;" ></div>
             </div>
-          </div>
+            {% else %}
+              <div class="text-center"><p class="py-5">No reviews yet. Would you like to be the first?</p></div>
+            {% endif %}
+            </div>
           <div style="text-align: center;" class="mt-4">
               <a class="btn btn-primary btn-lg mt-4" href="{% url 'reviews' %}">Leave a review?</a>
             </div>

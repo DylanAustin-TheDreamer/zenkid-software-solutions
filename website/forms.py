@@ -35,7 +35,7 @@ class MessageForm(forms.ModelForm):
     )
     class Meta:
         model = Message
-        fields = ['name', 'email', 'number', 'subject', 'message']
+        fields = ['name', 'email', 'number', 'subject', 'order_ref', 'message']
 
     def clean_number(self):
         number = self.cleaned_data['number']

@@ -32,6 +32,7 @@ class Message(models.Model):
     email = models.EmailField()
     number = models.CharField(max_length=20, default=False, null=False)
     subject = models.CharField(max_length=200)
+    order_ref = models.CharField(max_length=25, default=None, null=True)
     message = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
