@@ -68,7 +68,7 @@
                         <h4 class="mb-4">Completed</h4>
                                 <div class="mb-3" style="border: 0.5px solid rgba(255, 255, 255, 0.205) !important; border-radius: 8px;">
                                     <div class="card-body" style="background-color: rgba(0, 0, 0, 0);">
-                                        <h5 class="card-title order-title">Order Reference: <em style="color: rgb(252, 162, 255);">{{ order.reference }}</em></h5>
+                                        <h5 class="card-title order-title">Order Reference: </h5><span class="copy"><span class="value">{{ order.reference }}</span> <span class="click"><i class="fa-solid fa-clipboard"></i> <span>Copy</span></span></span>
                                         <hr>
                                         <p><strong>Service:</strong> {{ order.service }}</p>
                                         <p><strong>Message:</strong> {{ order.message }}</p>

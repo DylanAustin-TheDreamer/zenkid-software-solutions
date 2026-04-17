@@ -2,58 +2,77 @@
 {% load static %}
 
 {% block background_image %}{% static "" %}{% endblock %}
+{% block bg-color %}style="background-color: rgba(0, 0, 0, 0.9)"{% endblock %}
+{% block footer %}style="background-color: rgb(29, 29, 29) !important;"{% endblock %}
 {% block content %}
+<style>
+#footer-nav{
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    font-size: 3rem;
+    flex-direction: row;
+}
+#footer-nav a{
+    color: rgb(209, 209, 209);
+    text-decoration: none;
+}
+#footer-nav a:hover{
+    color: rgb(255, 255, 255);
+    transform: translateY(-0.2rem);
+    transition: color ease-in-out 0.2s, transform ease-in-out 0.15s;
+
+}
+#footer-info{
+    text-align: center;
+    margin-top: 1rem;
+}
+</style>
   <!-- Order Form Section -->
-  <section class="py-5">
+  <section class="py-5 mechanic-page">
     <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-lg-8 col-md-10">
+        <!-- Intro and information about the mechanic shop -->
+        <div>
+            <h1 class="text-center mb-4 mechanic">The Mechanic Shop... <i class="fa-solid fa-wrench"></i></h1>
+            <hr class="mb-4" style="color: white !important;">
+            <p class="text-white" style="font-size: large;">Welcome to our mechanic shop!</p>
+            <p class="text-white" style="line-height: normal; padding: 15px;">Have you spent hours trying to build a website, only for it to fall short of what you imagined? Maybe the platform you're using feels confusing or too limited - Or perhaps you've used AI to generate a website for your business, but it's not working the way it should? Things are broken, unfinished, or you're not sure how to get it online? That's where we come in. Our technical team can take a look at your project, whether it's built with a website builder or created using AI. We'll fix issues, improve performance, and help turn it into something that actually works for you. Think of us as your website mechanics. Bring your site in, and we'll get it running smoothly again. 🚀</p>
+            <br>
+            <p style="font-size: large;" class="text-white"><strong class="mechanic">Disclaimer: </strong>You retain all rights to your intellectual property when using ZenKid Software Solutions - we only provide a service. If you wish to read about how we handle your data -> <a href="{% url 'privacy' %}" class="mechanic">See our privacy statement</a></p>
+        </div>
+        <hr class="mb-4" style="color: white !important;">
+      <div class="row justify-content-center mt-4">
+        <div class="col-lg-8 col-md-10 text-white">
           {% if user.is_authenticated %}
-            {% if orders %}
-                <h1 class="text-center mb-4">Order a Service</h1>
-                  <p class="text-center text-muted mb-5">You have already placed orders. This page will be restored once our admin team have completed your request.</p>
+            {% if fix_orders %}
+                <h2 class="text-center mb-4 mechanic">Mechanic Form <i class="fa-solid fa-wrench"></i></h1>
+                  <p class="text-center text-white mb-5">You have already placed orders. This page will be restored once our admin team have completed your request.</p>
                 <br>
-            {% elif not orders %}
-                  <h1 class="text-center mb-4">Order a Service</h1>
-                  <p class="text-center text-muted mb-5">Fill out the form below and we'll get back to you as soon as possible</p>
-                  {% if orders.errors %}
+            {% elif not fix_orders %}
+                  <h2 class="text-center mb-4 mechanic">Mechanic Form <i class="fa-solid fa-wrench"></i></h1>
+                  <p class="text-center text-white mb-5">Fill out the form below and we'll get back to you as soon as possible</p>
+                  {% if fix_orders.errors %}
                     <div class="alert alert-danger">
                       <ul>
                         
-                        {% for field in orders %}
+                        {% for field in fix_orders %}
                           {% for error in field.errors %}
                             <li>{{ field.label }}: {{ error }}</li>
                           {% endfor %}
                         {% endfor %}
-                        {% for error in orders.non_field_errors %}
+                        {% for error in fix_orders.non_field_errors %}
                           <li>{{ error }}</li>
                         {% endfor %}
                       </ul>
                     </div>
                   {% endif %}
                   
-                  <form action="{% url 'make-order' %}" method="POST" class="needs-validation" novalidate>
+                  <form action="{% url 'make-mechanic' %}" method="POST" class="needs-validation" novalidate>
                     {% csrf_token %}
                     
-                    <!-- Service Selection -->
-                    <div class="mb-3">
-                      <label for="service" class="form-label">Select Service <em style="text-emphasis: none; color: red;">*</em></label>
-                      <select class="form-select" id="service" name="service" required>
-                        <option value="" selected disabled>Choose a service...</option>
-                        <option value="websites-info">Websites (info only)</option>
-                        <option value="fullstack-websites">Full-Stack Websites</option>
-                        <option value="auto-page-posting">Auto Page Posting</option>
-                        <option value="web-assistant">Web Assistant</option>
-                        <option value="ai-services">AI Services</option>
-                        <option value="mobile-apps">Mobile Apps</option>
-                      </select>
-                      <div class="invalid-feedback">
-                        Please select a service.
-                      </div>
-                    </div>
 
                     <!-- Name -->
-                    <div class="mb-3">
+                    <div class="mb-3 text-white">
                       <label for="name" class="form-label">Full Name <em style="text-emphasis: none; color: red;">*</em></label>
                       <input type="text" class="form-control" id="name" name="name" placeholder="Enter your full name" required>
                       <div class="invalid-feedback">
@@ -62,7 +81,7 @@
                     </div>
 
                     <!-- Email -->
-                    <div class="mb-3">
+                    <div class="mb-3 text-white">
                       <label for="email" class="form-label">Email Address <em style="text-emphasis: none; color: red;">*</em></label>
                       <input type="email" class="form-control" id="email" name="email" placeholder="your.email@example.com" required>
                       <div class="invalid-feedback">
@@ -71,7 +90,7 @@
                     </div>
 
                     <!-- Phone -->
-                    <div class="mb-3">
+                    <div class="mb-3 text-white">
                       <label class="form-label">Phone Number <em style="text-emphasis: none; color: red;">*</em></label>
                       <div class="input-group">
                         <select class="form-select" id="country_code_order" style="max-width: 130px;">
@@ -95,7 +114,7 @@
                     </div>
 
                     <!-- Business Name -->
-                    <div class="mb-3">
+                    <div class="mb-3 text-white">
                       <label for="business" class="form-label">Business Name <em style="text-emphasis: none; color: red;">*</em></label>
                       <input type="text" class="form-control" id="business" name="business_name" placeholder="My Business Name" required>
                       <div class="invalid-feedback">
@@ -104,23 +123,23 @@
                     </div>
 
                     <!-- Message/Details -->
-                    <div class="mb-4">
-                      <label for="message" class="form-label">Project Details <em style="text-emphasis: none; color: red;">*</em></label>
-                      <textarea class="form-control" id="message" name="message" rows="6" placeholder="Tell us about your project, your requirements, timeline, budget, etc." required></textarea>
+                    <div class="mb-4 text-white">
+                      <label for="message" class="form-label">Problems with your project <em style="text-emphasis: none; color: red;">*</em></label>
+                      <textarea class="form-control" id="message" name="message" rows="6" placeholder="Tell us about the problems you are having with your project. What are you trying to do and what is not working? Are you having issues with deployment? - Provide as much detail as possible" required></textarea>
                       <div class="invalid-feedback">
-                        Please provide details about your project.
+                        Please provide details about the problems you are having with your project.
                       </div>
                     </div>
 
                     <!-- Submit Button -->
                     <div class="d-grid gap-2 d-flex justify-content-center align-items-center">
-                      <button type="submit" class="btn btn-primary btn-lg">Submit Order Request</button>
+                      <button type="submit" class="btn btn-primary btn-lg">Submit Mechanic Request</button>
                     </div>
                   </form>
                   {% endif %}
                   {% else %}
-                  <h1 class="text-center mb-4">Order a Service</h1>
-                  <p class="text-center text-muted mb-5">Please login to your account to make an order request.</p>
+                  <h2 class="text-center mb-4 mechanic">Mechanic Form <i class="fa-solid fa-wrench"></i></h1>
+                  <p class="text-center text-white mb-5">Please login to your account to make a mechanic request.</p>
                   <br>
                   <div class="container d-flex justify-content-center align-items-center">
                   <a href="{% url 'login' %}" class="btn btn-secondary btn-lg" style="text-decoration: none;">Login</a>
@@ -133,7 +152,7 @@
 
   <script>
     // Combine country code + local number before Bootstrap validation runs
-    document.querySelector('form[action*="make-order"]').addEventListener('submit', function() {
+    document.querySelector('form[action*="make-mechanic"]').addEventListener('submit', function() {
         const code = document.getElementById('country_code_order').value;
         const local = document.getElementById('local_number_order').value;
         document.getElementById('number_order').value = code + local;
@@ -159,7 +178,7 @@
     document.addEventListener("DOMContentLoaded", function() {
       let nav_links = Array.from(document.getElementsByClassName("nav-link"));
       for(let i = 0; i < nav_links.length; i++){
-        if(nav_links[i].dataset.page === "orders"){
+        if(nav_links[i].dataset.page === "mechanic"){
           nav_links[i].classList.add("underline-page");
         } else{
           nav_links[i].classList.remove("underline-page");

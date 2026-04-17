@@ -32,6 +32,7 @@
   <!-- Custom styles for this template -->
 <link rel="stylesheet" href="{% static 'css/images.css' %}">
 <link rel="stylesheet" href="{% static 'css/body.css' %}">
+<link rel="stylesheet" href="{% static 'css/navbarStyles.css' %}">
 <link rel="stylesheet" href="{% static 'css/footer.css' %}">
 <link rel="stylesheet" href="{% static 'css/titles.css' %}">
 <link rel="stylesheet" href="{% static 'css/reviews.css' %}">
@@ -81,6 +82,7 @@
             <a class="nav-link" aria-current="page" href="{% url 'contact' %}" data-page="contact">Contact</a>
             <a class="nav-link" aria-current="page" href="{% url 'orders' %}" data-page="orders">Orders</a>
             <a class="nav-link" aria-current="page" href="{% url 'reviews' %}" data-page="reviews">Reviews</a>
+            <a class="nav-link mechanic" aria-current="page" href="{% url 'mechanic' %}" data-page="mechanic">Mechanic Shop</a>
         </div>
         <div style="padding-right: 20px;" class="navbar-nav" id="profile">
           {% if user.is_authenticated %}
@@ -112,6 +114,7 @@
               <li style="margin-top: 10px; border-left: solid 1px white;"><a href="{% url 'contact' %}" class="text-white" style="margin-left: 15px;">Contact</a></li>
               <li style="margin-top: 10px; border-left: solid 1px white;"><a href="{% url 'orders' %}" class="text-white" style="margin-left: 15px;">Orders</a></li>
               <li style="margin-top: 10px; border-left: solid 1px white;"><a href="{% url 'reviews' %}" class="text-white" style="margin-left: 15px;">Reviews</a></li>
+              <li style="margin-top: 10px; border-left: solid 1px white;"><a class="nav-link mechanic" aria-current="page" href="{% url 'mechanic' %}" data-page="mechanic">Mechanic Shop</a></li>
               </ul>
           </div>
         </div>

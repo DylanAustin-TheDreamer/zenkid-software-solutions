@@ -13,12 +13,29 @@ def random_reference():
 
 # Create your models here.
 class Order(models.Model):
+    """ For making orders via the order form """
+
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     email = models.EmailField()
     number = models.CharField(max_length=20)
     business_name = models.CharField(max_length=100, null=True)
     service = models.CharField(max_length=100)
+    message = models.TextField()
+    completed = models.BooleanField(default=False)
+    in_progress = models.BooleanField(default=False)
+    invoice = models.CharField(max_length=100, blank=True, null=True)
+    reference = models.CharField(max_length=100, default=random_reference, blank=False, null=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+class Mechanic(models.Model):
+    """ Almost identical to orders model but without service selection """
+
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    number = models.CharField(max_length=20)
+    business_name = models.CharField(max_length=100, null=True)
     message = models.TextField()
     completed = models.BooleanField(default=False)
     in_progress = models.BooleanField(default=False)

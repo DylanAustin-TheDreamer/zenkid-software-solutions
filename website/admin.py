@@ -1,7 +1,8 @@
 from django.contrib import admin
-from .models import Order, Message, Reviews
+from .models import Order, Message, Reviews, Mechanic
 
 # Register your models here.
 admin.site.register(Order)
 admin.site.register(Message)
 admin.site.register(Reviews)
+admin.site.register(Mechanic)

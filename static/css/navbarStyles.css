@@ -1,0 +1,17 @@
+@keyframes mechanicAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+.mechanic{
+  color: transparent;
+  background: linear-gradient(90deg, #bea534, #bea534, #cf50cf, #e2c419);
+  background-size: 200% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: mechanicAnimation 1.5s linear infinite alternate;
+}

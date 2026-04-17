@@ -6,8 +6,8 @@ from openai import OpenAI
 from django.conf import settings
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
-from .models import Order, Message, Reviews, CustomerProfile
-from .forms import OrderForm, MessageForm, CustomSignupForm
+from .models import Order, Message, Reviews, CustomerProfile, Mechanic
+from .forms import OrderForm, MessageForm, CustomSignupForm, MechanicForm
 from django.contrib import messages
 from django.db.models import Avg
 import json
@@ -146,6 +146,7 @@ def make_message(request):
             contact.user = request.user
             contact.save()
             contact = {'contact': Message.objects.filter(user=request.user)}
+            messages.success(request, "You have successfully sent a message!")
             return render(request, 'contact.html', contact)
         else:
             return render(request, 'contact.html', {'contact': form})
@@ -156,11 +157,47 @@ def make_message(request):
 
 # for orders
 def orders(request):
-    order = Order.objects.filter(user=request.user)
-    context = {
-        'orders': order
-    }
-    return render(request, 'orders.html', context)
+    if request.user.is_authenticated:
+        order = Order.objects.filter(user=request.user)
+        context = {
+            'orders': order
+        }
+        return render(request, 'orders.html', context)
+    else:
+        return render(request, 'orders.html')
+
+def mechanic(request):
+    if request.user.is_authenticated:
+        order = Mechanic.objects.filter(user=request.user)
+        context = {
+            'fix_orders': order
+        }
+        return render(request, 'mechanic.html', context)
+    else:
+        return render(request, 'mechanic.html')
+
+def make_mechanic(request):
+    """ Handle the mechanic form submission """
+
+    if request.method == 'POST':
+        form = MechanicForm(request.POST)
+        if form.is_valid():
+            order = form.save(commit=False)
+            order.user = request.user
+            order.save()
+            business = CustomerProfile.objects.filter(user=request.user).first()
+            context = {
+                'fix_orders': Mechanic.objects.filter(user=request.user),
+                'business': business
+            }
+            messages.success(request, "You have successfully made a mechanic request!")
+            return render(request, 'mechanic.html', context)
+        else:
+            # Show form errors in the template
+            return render(request, 'mechanic.html', {'fix_orders': form})
+    else:
+        form = MechanicForm()
+        return render(request, 'mechanic.html', {'fix_orders': form})
 
 def make_order(request):
     """ Handle the order form submission """
@@ -176,6 +213,7 @@ def make_order(request):
                 'orders': Order.objects.filter(user=request.user),
                 'business': business
             }
+            messages.success(request, "You have successfully made an order!")
             return render(request, 'account.html', context)
         else:
             # Show form errors in the template
