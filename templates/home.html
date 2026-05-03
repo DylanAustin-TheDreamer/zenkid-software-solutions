@@ -294,57 +294,9 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-const servicesButton = document.getElementById('services-button');
-const flowButton = document.getElementById('flow-button');
-const whatDoButton = document.getElementById('what-do-button');
-const servicesContent = document.getElementById('services-content');
-const flowContent = document.getElementById('flow-content');
-const whatDoContent = document.getElementById('what-do-content');
-
-servicesButton.addEventListener('click', () => {
-    if(servicesContent.classList.contains('services-hide')) {
-        flowContent.classList.remove('flow-show');
-        flowContent.classList.add('flow-hide');
-        whatDoContent.classList.remove('services-show');
-        whatDoContent.classList.add('services-hide');
-        servicesContent.classList.remove('services-hide');
-        servicesContent.classList.add('services-show');
-    } else {
-        servicesContent.classList.remove('services-show');
-        servicesContent.classList.add('services-hide');
-    }
-});
-
-flowButton.addEventListener('click', () => {
-    if(flowContent.classList.contains('flow-hide')) {
-        flowContent.classList.remove('flow-hide');
-        flowContent.classList.add('flow-show');
-        servicesContent.classList.remove('services-show');
-        servicesContent.classList.add('services-hide');
-        whatDoContent.classList.remove('services-show');
-        whatDoContent.classList.add('services-hide');
-    } else {
-        flowContent.classList.remove('flow-show');
-        flowContent.classList.add('flow-hide');
-    }
-});
-
-whatDoButton.addEventListener('click', () => {
-    if(whatDoContent.classList.contains('services-hide')) {
-        whatDoContent.classList.remove('services-hide');
-        whatDoContent.classList.add('services-show');
-        servicesContent.classList.remove('services-show');
-        servicesContent.classList.add('services-hide');
-        flowContent.classList.remove('flow-show');
-        flowContent.classList.add('flow-hide');
-    } else {
-        whatDoContent.classList.remove('services-show');
-        whatDoContent.classList.add('services-hide');
-    }
-});
-const contactButton = document.getElementById('contact-us');
-contactButton.addEventListener('click', () => {
-        window.location.href = "/contact/";
+    const contactButton = document.getElementById('contact-us');
+    contactButton.addEventListener('click', () => {
+      window.location.href = "/contact/";
     });
 });
 </script>
@@ -358,7 +310,7 @@ contactButton.addEventListener('click', () => {
     const review_slot_1 = document.getElementById("review-slot-1");
     const review_slot_2 = document.getElementById("review-slot-2");
     const review_slot_3 = document.getElementById("review-slot-3");
-    const slotArray = [review_slot_1, review_slot_2, review_slot_3]
+    const slotArray = [review_slot_1, review_slot_2, review_slot_3];
 
     UpdateSlots();
 
@@ -391,7 +343,7 @@ contactButton.addEventListener('click', () => {
         setTimeout(() => {
             reviews_show.forEach(review => review.classList.add("fade"));
         }, 5000);
-    }
+    };
 
     setInterval(() => {
         reviews.forEach(review => review.classList.add("fade"));

@@ -84,6 +84,14 @@
           nav_links[i].classList.remove("underline-page");
         }
       }
+      let drop_links = Array.from(document.getElementsByClassName("drop-link"));
+      for(let i = 0; i < drop_links.length; i++){
+        if(drop_links[i].dataset.page === "about-drop"){
+          drop_links[i].classList.add("active");
+        } else{
+          drop_links[i].classList.remove("active");
+        }
+      }
     });
 </script>
 <!-- Script below for handling drop downs -->

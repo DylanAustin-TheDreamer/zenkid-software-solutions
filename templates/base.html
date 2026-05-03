@@ -106,15 +106,15 @@
             <hr style="color: white;">
             <ul class="list-unstyled" style="padding: 10px;"> 
               {% if user.is_authenticated %}
-              <li style="border-left: solid 1px white;"><a class="text-white" aria-current="page" href="{% url 'user-account' %}" style="margin-left: 15px;">Account</a></li>
+              <li style="border-left: solid 1px white;"><a class="text-white" aria-current="page" href="{% url 'user-account' %}" style="margin-left: 15px;" data-page="account-drop">Account</a></li>
               {% else %}
-              <li style="border-left: solid 1px white;"><a class="text-white" aria-current="page" href="{% url 'login' %}" style="margin-left: 15px;">Login</a></li>
+              <li style="border-left: solid 1px white;"><a class="text-white" aria-current="page" href="{% url 'login' %}" style="margin-left: 15px;" data-page="login-drop">Login</a></li>
               {% endif %}
-              <li style="margin-top: 10px; border-left: solid 1px white;"><a href="{% url 'about' %}" class="text-white" style="margin-left: 15px;">About</a></li>
-              <li style="margin-top: 10px; border-left: solid 1px white;"><a href="{% url 'contact' %}" class="text-white" style="margin-left: 15px;">Contact</a></li>
-              <li style="margin-top: 10px; border-left: solid 1px white;"><a href="{% url 'orders' %}" class="text-white" style="margin-left: 15px;">Orders</a></li>
-              <li style="margin-top: 10px; border-left: solid 1px white;"><a href="{% url 'reviews' %}" class="text-white" style="margin-left: 15px;">Reviews</a></li>
-              <li style="margin-top: 10px; border-left: solid 1px white;"><a class="nav-link mechanic" aria-current="page" href="{% url 'mechanic' %}" data-page="mechanic">Mechanic Shop</a></li>
+              <li style="margin-top: 10px; border-left: solid 1px white;"><a href="{% url 'about' %}" class="text-white drop-link" style="margin-left: 15px;" data-page="about-drop">About</a></li>
+              <li style="margin-top: 10px; border-left: solid 1px white;"><a href="{% url 'contact' %}" class="text-white drop-link" style="margin-left: 15px;" data-page="contact-drop">Contact</a></li>
+              <li style="margin-top: 10px; border-left: solid 1px white;"><a href="{% url 'orders' %}" class="text-white drop-link" style="margin-left: 15px;" data-page="orders-drop">Orders</a></li>
+              <li style="margin-top: 10px; border-left: solid 1px white;"><a href="{% url 'reviews' %}" class="text-white drop-link" style="margin-left: 15px;" data-page="reviews-drop">Reviews</a></li>
+              <li style="margin-top: 10px; border-left: solid 1px white;"><a class="nav-link mechanic" aria-current="page drop-link" href="{% url 'mechanic' %}">Mechanic Shop</a></li>
               </ul>
           </div>
         </div>
